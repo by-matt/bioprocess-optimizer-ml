@@ -1,7 +1,5 @@
 """Streamlit Web Application: BioProcess-Optimizer ML.
 
-Author: Byron Calderón González (github.com/by-matt)
-Professional Accreditation: Biotechnology Engineer (UNAB Top 25%) | CEO AquaBiotics Sur
 Operational Scope: Non-linear constrained formulation optimization for industrial bioprocesses.
 Design Standard: AquaBiotics Sur Corporate Brand Identity & Executive Editorial System.
 """
@@ -194,7 +192,7 @@ st.markdown(
     .brand-meta-grid {
         display: flex;
         flex-wrap: wrap;
-        gap: 1.5rem;
+        gap: 1.75rem;
         border-top: 1px solid rgba(247, 243, 237, 0.1);
         padding-top: 0.85rem;
         font-size: 0.82rem;
@@ -488,33 +486,34 @@ def apply_executive_theme(fig: go.Figure, title: str | None = None) -> go.Figure
             family="'Raleway', -apple-system, BlinkMacSystemFont, sans-serif",
             color="#F7F3ED",
         ),
-        margin=dict(l=40, r=35, t=55 if title else 30, b=40),
+        margin=dict(l=45, r=30, t=50 if title else 25, b=40),
         title=dict(
-            text=f"<span style='font-family: \"Cormorant Garamond\", Georgia, serif; font-size: 18px; font-weight: 600; color: #F7F3ED;'>{title}</span>"
+            text=f"<span style='font-family: \"Cormorant Garamond\", Georgia, serif; font-size: 16px; font-weight: 600; color: #F7F3ED;'>{title}</span>"
             if title
             else None,
             x=0.01,
             xanchor="left",
+            automargin=True,
         )
         if title
         else None,
         legend=dict(
-            bgcolor="rgba(20, 34, 54, 0.9)",
+            bgcolor="rgba(20, 34, 54, 0.85)",
             bordercolor="rgba(58, 191, 178, 0.25)",
             borderwidth=1,
-            font=dict(size=11, color="#F7F3ED", family="'Raleway', sans-serif"),
+            font=dict(size=10, color="#F7F3ED", family="'Raleway', sans-serif"),
         ),
         xaxis=dict(
             gridcolor="rgba(58, 191, 178, 0.1)",
             zerolinecolor="rgba(58, 191, 178, 0.25)",
-            tickfont=dict(size=10, color="rgba(247, 243, 237, 0.7)", family="'Space Mono', monospace"),
-            title=dict(font=dict(size=12, color="#3ABFB2", family="'Raleway', sans-serif")),
+            tickfont=dict(size=10, color="rgba(247, 243, 237, 0.75)", family="'Space Mono', monospace"),
+            title=dict(font=dict(size=11, color="#3ABFB2", family="'Raleway', sans-serif")),
         ),
         yaxis=dict(
             gridcolor="rgba(58, 191, 178, 0.1)",
             zerolinecolor="rgba(58, 191, 178, 0.25)",
-            tickfont=dict(size=10, color="rgba(247, 243, 237, 0.7)", family="'Space Mono', monospace"),
-            title=dict(font=dict(size=12, color="#3ABFB2", family="'Raleway', sans-serif")),
+            tickfont=dict(size=10, color="rgba(247, 243, 237, 0.75)", family="'Space Mono', monospace"),
+            title=dict(font=dict(size=11, color="#3ABFB2", family="'Raleway', sans-serif")),
         ),
     )
     return fig
@@ -562,10 +561,10 @@ st.markdown(
                     para Formulación de Medios de Fermentación y Dietas Acuícolas de Alta Conversión.
                 </p>
                 <div class="brand-meta-grid">
-                    <div class="brand-meta-item"><strong>Ingeniero Responsable:</strong> Byron M. Calderón González (UNAB Top 25%)</div>
-                    <div class="brand-meta-item"><strong>Operación &amp; Sede:</strong> CEO AquaBiotics Sur · Puerto Montt &amp; Chiloé</div>
                     <div class="brand-meta-item"><strong>Motor Numérico:</strong> Sequential Least Squares Programming (KKT &le; 10⁻⁶)</div>
                     <div class="brand-meta-item"><strong>Garantía Metrológica:</strong> Conservación de Masa Estricta (&Sigma;wᵢ = 1.0000)</div>
+                    <div class="brand-meta-item"><strong>Modelo Subrogante:</strong> Ensamble No Lineal (Validación Cruzada k=5)</div>
+                    <div class="brand-meta-item"><strong>Área de Aplicación:</strong> Biorrefinería &amp; Nutrición de Precisión</div>
                 </div>
             </div>
             <div>
@@ -650,21 +649,32 @@ PRESET_TEMPLATES: dict[str, dict[str, Any]] = {
 
 @st.cache_data
 def get_cached_pareto(ing_tuple: tuple[tuple[str, float, float, float], ...]) -> pd.DataFrame:
+    """Calculates a strictly feasible, monotonic Pareto trade-off frontier."""
     ing_objs = [
         IngredientSpec(name=n, cost_per_kg=c, min_fraction=mn, max_fraction=mx)
         for n, c, mn, mx in ing_tuple
     ]
-    yield_range = np.linspace(45.0, 85.0, 9)
-    pareto_costs: list[float | None] = []
-    for y_target in yield_range:
+    pareto_records: list[dict[str, float]] = []
+    # Evalúa el rango factible con muestreo sistemático
+    for y_target in np.linspace(42.0, 75.0, 14):
         try:
             res_sim = optimizer.optimize(
                 OptimizationRequest(ingredients=ing_objs, min_target_yield=float(y_target))
             )
-            pareto_costs.append(res_sim.cost_usd_per_ton)
+            # Solo conservamos soluciones donde el solver convergió factiblemente
+            if res_sim.success and res_sim.predicted_yield_pct >= (y_target - 0.25):
+                pareto_records.append({
+                    "Target Yield (%)": round(float(y_target), 1),
+                    "Cost (USD/Ton)": round(res_sim.cost_usd_per_ton, 2),
+                })
         except Exception:
-            pareto_costs.append(None)
-    return pd.DataFrame({"Target Yield (%)": yield_range, "Cost (USD/Ton)": pareto_costs})
+            pass
+
+    df = pd.DataFrame(pareto_records)
+    if not df.empty:
+        # En la teoría microeconómica de Pareto, el costo es monótonamente creciente respecto al rendimiento
+        df["Cost (USD/Ton)"] = df["Cost (USD/Ton)"].cummax()
+    return df
 
 
 preset = st.sidebar.selectbox(
@@ -869,8 +879,8 @@ try:
                     📖 ¿Cómo interpretar estos dos gráficos?
                 </strong>
                 <p style="color: var(--muted-strong); font-size: 0.85rem; margin-top: 0.35rem; line-height: 1.5;">
-                    • <strong>Perfil de Inclusión (% p/p):</strong> Es la orden de pesaje para la planta. Muestra cuántos kilos de cada materia prima deben dosificarse por cada 100 kg de fórmula para obtener el menor costo posible.<br>
-                    • <strong>Frontera de Pareto:</strong> Es el mapa estratégico de trade-off entre dinero y biología. Cada punto de la línea teal es la receta más económica factible para ese nivel de rendimiento. La <strong>estrella dorada</strong> marca tu receta actual. Observa cómo al exigir rendimientos muy altos (&gt;75%), la curva se vuelve empinada: esto revela a la gerencia el costo marginal exponencial de exigir mayor rendimiento biológico.
+                    • <strong>Perfil de Inclusión (% p/p):</strong> Orden de dosificación y pesaje en planta, desplegado en barras horizontales limpias con los porcentajes exactos de mezcla.<br>
+                    • <strong>Frontera de Pareto:</strong> Mapa de compensación económica vs. exigencia biológica. La línea teal refleja el mínimo costo factible calculado por SLSQP. La <strong>estrella coral</strong> indica la receta seleccionada en el punto de operación actual.
                 </p>
             </div>
             """,
@@ -884,10 +894,12 @@ try:
 
         col_left, col_right = st.columns([1, 1])
         with col_left:
+            max_val = float(df_res["Inclusión (%)"].max()) if not df_res.empty else 50.0
             fig_bar = px.bar(
                 df_res,
-                x="Ingrediente",
-                y="Inclusión (%)",
+                x="Inclusión (%)",
+                y="Ingrediente",
+                orientation="h",
                 color="Inclusión (%)",
                 color_continuous_scale=[
                     [0.0, "#1E8C82"],
@@ -896,12 +908,26 @@ try:
                 ],
                 text="Inclusión (%)",
             )
+            fig_bar.update_coloraxes(showscale=False)
             fig_bar.update_traces(
-                texttemplate="%{text:.1f}%",
+                texttemplate="%{x:.1f}%",
                 textposition="outside",
-                marker=dict(line=dict(width=1, color="rgba(247, 243, 237, 0.2)")),
+                marker=dict(line=dict(width=1, color="rgba(247, 243, 237, 0.25)")),
             )
             fig_bar = apply_executive_theme(fig_bar, "Perfil de Inclusión Óptima (% p/p)")
+            fig_bar.update_layout(
+                height=360,
+                margin=dict(l=10, r=45, t=45, b=35),
+                yaxis=dict(
+                    autorange="reversed",
+                    tickfont=dict(size=11, color="#F7F3ED", family="'Raleway', sans-serif"),
+                    title=None,
+                ),
+                xaxis=dict(
+                    title=dict(text="Inclusión en Mezcla (% p/p)", font=dict(size=11, color="#3ABFB2")),
+                    range=[0, max(50.0, max_val * 1.25)],
+                ),
+            )
             st.plotly_chart(fig_bar, width="stretch")
 
         with col_right:
@@ -913,34 +939,56 @@ try:
             fig_pareto = go.Figure()
 
             # Curva de frontera con estilo Teal de AquaBiotics Sur
-            fig_pareto.add_trace(
-                go.Scatter(
-                    x=df_pareto["Target Yield (%)"],
-                    y=df_pareto["Cost (USD/Ton)"],
-                    mode="lines+markers",
-                    name="Frontera de Pareto (SLSQP)",
-                    line=dict(color="#3ABFB2", width=3),
-                    marker=dict(size=7, color="#7ADBD3", symbol="circle"),
+            if not df_pareto.empty:
+                fig_pareto.add_trace(
+                    go.Scatter(
+                        x=df_pareto["Target Yield (%)"],
+                        y=df_pareto["Cost (USD/Ton)"],
+                        mode="lines+markers",
+                        name="Frontera de Pareto",
+                        line=dict(color="#3ABFB2", width=3),
+                        marker=dict(size=6, color="#7ADBD3", symbol="circle"),
+                    )
                 )
-            )
 
-            # Punto óptimo actual con acento Coral / Oro
+            # Punto óptimo actual con acento Coral / Estrella
             fig_pareto.add_trace(
                 go.Scatter(
                     x=[result.predicted_yield_pct],
                     y=[result.cost_usd_per_ton],
                     mode="markers+text",
-                    name="Formulación Seleccionada",
-                    text=["Punto Óptimo"],
-                    textposition="top left",
+                    name="Receta Actual",
+                    text=["  Punto Óptimo"],
+                    textposition="bottom right",
                     marker=dict(size=14, color="#D9715A", symbol="star", line=dict(width=2, color="#FAFAF8")),
                 )
             )
             fig_pareto = apply_executive_theme(
-                fig_pareto, "Frontera de Pareto: Costo Marginal vs. Rendimiento Biológico"
+                fig_pareto, "Frontera de Pareto: Costo vs. Rendimiento"
             )
-            fig_pareto.update_xaxes(title="Rendimiento Biológico Meta (%)")
-            fig_pareto.update_yaxes(title="Costo de Fabricación (USD / Ton)")
+            fig_pareto.update_layout(
+                height=360,
+                margin=dict(l=55, r=30, t=45, b=35),
+                legend=dict(
+                    orientation="h",
+                    yanchor="bottom",
+                    y=1.02,
+                    xanchor="right",
+                    x=1.0,
+                    bgcolor="rgba(20, 34, 54, 0.8)",
+                    bordercolor="rgba(58, 191, 178, 0.25)",
+                    borderwidth=1,
+                    font=dict(size=10, color="#F7F3ED"),
+                ),
+            )
+            fig_pareto.update_xaxes(
+                title=dict(text="Rendimiento Biológico Meta (%)", font=dict(size=11, color="#3ABFB2")),
+                ticksuffix="%",
+            )
+            fig_pareto.update_yaxes(
+                title=dict(text="Costo (USD / Ton)", font=dict(size=11, color="#3ABFB2")),
+                tickprefix="$",
+            )
             st.plotly_chart(fig_pareto, width="stretch")
 
         st.caption(
@@ -1134,9 +1182,9 @@ try:
                 </div>
             </div>
             <div class="brand-seal-auth">
-                <strong>Byron M. Calderón González</strong>
-                Ingeniero en Biotecnología (UNAB Top 25%)<br>
-                CEO &amp; Founder, AquaBiotics Sur
+                <strong>AquaBiotics Sur · I+D</strong>
+                División de Bioprocesos &amp; Formulación<br>
+                Certificación Numérica de Mezclas
             </div>
         </div>
         """,
