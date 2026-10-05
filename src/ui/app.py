@@ -1,7 +1,7 @@
 """Streamlit Web Application: BioProcess-Optimizer ML.
 
 Operational Scope: Non-linear constrained formulation optimization for industrial bioprocesses.
-Design Standard: AquaBiotics Sur Corporate Brand Identity & Executive Editorial System.
+Design Standard: AquaBiotics Sur Corporate Brand Identity · Executive Editorial & Luxury Dark System.
 """
 
 import base64
@@ -42,7 +42,7 @@ def get_brand_logo_b64() -> str:
     return ""
 
 
-# AquaBiotics Sur Official Corporate Design System (Anti-AI Human Craft)
+# AquaBiotics Sur High-End Luxury Dark Design System
 st.markdown(
     """
     <style>
@@ -55,29 +55,37 @@ st.markdown(
         --teal: #3ABFB2;
         --teal-light: #7ADBD3;
         --teal-dark: #1E8C82;
-        --navy: #0A1628;
-        --navy-mid: #142236;
-        --navy-light: #1E3350;
+        --navy: #070e17;
+        --navy-surface: #0e1c2e;
+        --navy-elevated: #14273f;
         --lavender: #7B7DC0;
         --lavender-light: #A9AADC;
         --steel: #6B8FAB;
         --cream: #F7F3ED;
         --warm-white: #FAFAF8;
-        --charcoal: #1E1E2A;
         --muted: rgba(247, 243, 237, 0.55);
-        --muted-strong: rgba(247, 243, 237, 0.85);
+        --muted-strong: rgba(247, 243, 237, 0.88);
         --ff-display: 'Cormorant Garamond', Georgia, serif;
         --ff-body: 'Raleway', -apple-system, BlinkMacSystemFont, sans-serif;
         --ff-mono: 'Space Mono', 'Consolas', monospace;
     }
 
-    /* Core Application Surface */
+    /* Seamless Viewport & Ambient Gradient Mesh */
+    #MainMenu, footer { visibility: hidden !important; }
+    header[data-testid="stHeader"] { background: transparent !important; }
+
     .stApp {
         background-color: var(--navy);
+        background-image:
+            radial-gradient(circle at 10% 12%, rgba(58, 191, 178, 0.08) 0%, transparent 45%),
+            radial-gradient(circle at 90% 88%, rgba(217, 113, 90, 0.06) 0%, transparent 50%),
+            radial-gradient(circle at 50% 50%, rgba(123, 125, 192, 0.03) 0%, transparent 55%);
+        background-attachment: fixed;
         color: var(--cream);
         font-family: var(--ff-body);
         font-weight: 300;
         line-height: 1.65;
+        letter-spacing: 0.01em;
     }
 
     /* Executive Typography Overrides */
@@ -88,10 +96,11 @@ st.markdown(
         letter-spacing: -0.01em;
     }
 
-    /* Sidebar Styling */
+    /* Sidebar Luxury Styling */
     section[data-testid="stSidebar"] {
-        background-color: #0c182c !important;
+        background: linear-gradient(180deg, #07101c 0%, #050a12 100%) !important;
         border-right: 1px solid rgba(58, 191, 178, 0.18) !important;
+        box-shadow: 4px 0 24px rgba(0, 0, 0, 0.5) !important;
     }
     section[data-testid="stSidebar"] h1,
     section[data-testid="stSidebar"] h2,
@@ -102,19 +111,38 @@ st.markdown(
         font-weight: 600 !important;
     }
     section[data-testid="stSidebar"] .stMarkdown p {
-        font-size: 0.88rem;
+        font-size: 0.85rem;
         color: var(--muted-strong);
     }
 
-    /* Brand Header Block */
+    /* Pulse Dot for System Operational Status */
+    @keyframes livePulse {
+        0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(58, 191, 178, 0.7); }
+        70% { transform: scale(1.05); box-shadow: 0 0 0 7px rgba(58, 191, 178, 0); }
+        100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(58, 191, 178, 0); }
+    }
+    .pulse-dot {
+        display: inline-block;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--teal);
+        animation: livePulse 2.2s infinite;
+        margin-right: 6px;
+        vertical-align: middle;
+    }
+
+    /* Brand Header Luxury Banner */
     .brand-header-card {
         position: relative;
-        background: linear-gradient(145deg, #0A1628 0%, #142236 100%);
+        background: linear-gradient(145deg, rgba(14, 28, 46, 0.85) 0%, rgba(8, 16, 28, 0.95) 100%);
         border: 1px solid rgba(58, 191, 178, 0.22);
+        border-top: 1px solid rgba(122, 219, 211, 0.38);
         border-radius: 8px;
-        padding: 1.75rem 2rem;
-        margin-bottom: 1.5rem;
-        box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6);
+        padding: 1.85rem 2.2rem;
+        margin-bottom: 1.6rem;
+        box-shadow: 0 12px 36px -10px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(14px);
         overflow: hidden;
     }
     .brand-top-accent {
@@ -123,32 +151,32 @@ st.markdown(
         left: 0;
         right: 0;
         height: 3.5px;
-        background: linear-gradient(90deg, #0A1628 0%, #3ABFB2 45%, #D9715A 100%);
+        background: linear-gradient(90deg, #070e17 0%, #3ABFB2 45%, #D9715A 100%);
     }
     .brand-header-flex {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 1.75rem;
+        gap: 2rem;
     }
     .brand-header-text {
         flex: 1;
     }
     .brand-logo-img {
-        width: 100px;
-        height: 100px;
+        width: 105px;
+        height: 105px;
         object-fit: contain;
-        filter: drop-shadow(0 4px 14px rgba(58, 191, 178, 0.25));
+        filter: drop-shadow(0 6px 18px rgba(58, 191, 178, 0.3));
     }
     .brand-label-row {
         display: flex;
         align-items: center;
         gap: 12px;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.55rem;
     }
     .brand-pill {
         font-family: var(--ff-mono);
-        font-size: 0.72rem;
+        font-size: 0.7rem;
         letter-spacing: 0.16em;
         text-transform: uppercase;
         color: var(--teal);
@@ -156,183 +184,139 @@ st.markdown(
         display: inline-flex;
         align-items: center;
         gap: 7px;
-    }
-    .brand-pill::before {
-        content: "";
-        display: inline-block;
-        width: 7px;
-        height: 7px;
-        background: var(--coral);
-        border-radius: 50%;
+        background: rgba(58, 191, 178, 0.08);
+        padding: 3px 10px;
+        border-radius: 3px;
+        border: 1px solid rgba(58, 191, 178, 0.2);
     }
     .brand-doc-code {
         font-family: var(--ff-mono);
-        font-size: 0.72rem;
+        font-size: 0.7rem;
         color: var(--muted);
         letter-spacing: 0.12em;
-        border-left: 1px solid rgba(247, 243, 237, 0.2);
-        padding-left: 10px;
+        padding-left: 6px;
     }
     .brand-hero-title {
         font-family: var(--ff-display);
-        font-size: 2.35rem;
+        font-size: 2.5rem;
         font-weight: 600;
         line-height: 1.1;
         color: var(--cream);
-        margin: 0 0 0.4rem 0;
+        margin: 0 0 0.45rem 0;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
     }
     .brand-hero-subtitle {
         font-family: var(--ff-body);
         font-size: 0.95rem;
         font-weight: 300;
         color: var(--muted-strong);
-        line-height: 1.5;
-        margin: 0 0 1rem 0;
+        line-height: 1.55;
+        margin: 0 0 1.1rem 0;
+        max-width: 900px;
     }
     .brand-meta-grid {
         display: flex;
         flex-wrap: wrap;
-        gap: 1.75rem;
-        border-top: 1px solid rgba(247, 243, 237, 0.1);
-        padding-top: 0.85rem;
-        font-size: 0.82rem;
+        gap: 2rem;
+        border-top: 1px solid rgba(58, 191, 178, 0.15);
+        padding-top: 0.95rem;
+        font-size: 0.8rem;
         color: var(--muted);
-        font-family: var(--ff-body);
+        font-family: var(--ff-mono);
+        letter-spacing: 0.03em;
     }
     .brand-meta-item strong {
         color: var(--teal);
-        font-weight: 600;
-    }
-
-    /* Editorial Cards */
-    .brand-card {
-        background: var(--navy-mid);
-        border: 1px solid rgba(247, 243, 237, 0.08);
-        border-radius: 6px;
-        padding: 1.25rem 1.5rem;
-        margin-bottom: 1.15rem;
-    }
-    .brand-card.teal-accent {
-        border-left: 3.5px solid var(--teal);
-    }
-    .brand-card.coral-accent {
-        border-left: 3.5px solid var(--coral);
-    }
-    .brand-card.lavender-accent {
-        border-left: 3.5px solid var(--lavender);
-    }
-
-    /* Onboarding Guide Box */
-    .brand-guide-title {
-        font-family: var(--ff-mono);
-        font-size: 0.8rem;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: var(--teal);
         font-weight: 700;
-        margin-bottom: 0.5rem;
-    }
-    .brand-guide-text {
-        font-size: 0.9rem;
-        color: var(--muted-strong);
-        line-height: 1.6;
-        margin: 0;
-    }
-    .brand-guide-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1.1rem;
-        margin-top: 1.15rem;
-    }
-    .brand-guide-col {
-        background: #0f1d30;
-        border: 1px solid rgba(58, 191, 178, 0.15);
-        border-radius: 4px;
-        padding: 1rem 1.15rem;
-        font-size: 0.85rem;
-        color: var(--muted-strong);
-        line-height: 1.5;
-    }
-    .brand-guide-col strong {
-        font-family: var(--ff-mono);
-        color: var(--coral-light);
-        display: block;
-        margin-bottom: 0.4rem;
-        font-size: 0.8rem;
-        letter-spacing: 0.05em;
-        text-transform: uppercase;
     }
 
-    /* KPI Metrics Cards */
+    /* Luxury Container Cards */
+    .brand-card {
+        background: linear-gradient(150deg, rgba(14, 28, 46, 0.75) 0%, rgba(8, 16, 28, 0.9) 100%);
+        border: 1px solid rgba(58, 191, 178, 0.16);
+        border-radius: 6px;
+        padding: 1.35rem 1.6rem;
+        margin-bottom: 1.25rem;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(10px);
+    }
+    .brand-card.teal-accent { border-left: 3.5px solid var(--teal); }
+    .brand-card.coral-accent { border-left: 3.5px solid var(--coral); }
+    .brand-card.lavender-accent { border-left: 3.5px solid var(--lavender); }
+
+    /* Luxury KPI Metric Cards */
     .brand-kpi-card {
-        background: var(--navy-mid);
-        border: 1px solid rgba(247, 243, 237, 0.08);
+        background: linear-gradient(160deg, rgba(16, 32, 52, 0.85) 0%, rgba(9, 18, 30, 0.95) 100%);
+        border: 1px solid rgba(58, 191, 178, 0.18);
         border-top: 3px solid var(--teal);
         border-radius: 6px;
-        padding: 1.15rem 1.25rem;
+        padding: 1.25rem 1.35rem;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         height: 100%;
-        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+        box-shadow: 0 8px 26px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+        transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
     }
-    .brand-kpi-card.coral-top {
-        border-top-color: var(--coral);
+    .brand-kpi-card:hover {
+        transform: translateY(-2px);
+        border-color: rgba(58, 191, 178, 0.38);
+        box-shadow: 0 12px 34px rgba(0, 0, 0, 0.6), 0 0 18px rgba(58, 191, 178, 0.12);
     }
-    .brand-kpi-card.lavender-top {
-        border-top-color: var(--lavender);
-    }
-    .brand-kpi-card.steel-top {
-        border-top-color: var(--steel);
-    }
+    .brand-kpi-card.coral-top { border-top-color: var(--coral); }
+    .brand-kpi-card.lavender-top { border-top-color: var(--lavender); }
+    .brand-kpi-card.steel-top { border-top-color: var(--steel); }
+
     .brand-kpi-label {
         font-family: var(--ff-mono);
-        font-size: 0.7rem;
-        letter-spacing: 0.14em;
+        font-size: 0.68rem;
+        letter-spacing: 0.16em;
         text-transform: uppercase;
         color: var(--teal-light);
-        margin-bottom: 0.35rem;
+        margin-bottom: 0.45rem;
         font-weight: 700;
+        opacity: 0.95;
     }
     .brand-kpi-val {
         font-family: var(--ff-display);
-        font-size: 2.1rem;
+        font-size: 2.3rem;
         font-weight: 600;
-        color: var(--cream);
-        line-height: 1.1;
+        color: var(--warm-white);
+        line-height: 1.05;
+        letter-spacing: -0.01em;
     }
     .brand-kpi-badge {
         font-family: var(--ff-mono);
-        font-size: 0.74rem;
+        font-size: 0.72rem;
         letter-spacing: 0.06em;
-        margin-top: 0.5rem;
-        padding: 3px 8px;
+        margin-top: 0.65rem;
+        padding: 3px 9px;
         border-radius: 3px;
         width: fit-content;
     }
     .badge-teal {
         background: rgba(58, 191, 178, 0.12);
         color: var(--teal-light);
-        border: 1px solid rgba(58, 191, 178, 0.3);
+        border: 1px solid rgba(58, 191, 178, 0.32);
     }
     .badge-coral {
-        background: rgba(217, 113, 90, 0.12);
+        background: rgba(217, 113, 90, 0.14);
         color: var(--coral-light);
-        border: 1px solid rgba(217, 113, 90, 0.3);
+        border: 1px solid rgba(217, 113, 90, 0.35);
     }
     .badge-lavender {
-        background: rgba(123, 125, 192, 0.12);
+        background: rgba(123, 125, 192, 0.14);
         color: var(--lavender-light);
-        border: 1px solid rgba(123, 125, 192, 0.3);
+        border: 1px solid rgba(123, 125, 192, 0.35);
     }
 
     /* Insight Card */
     .brand-insight-box {
-        background: #0f1d30;
+        background: rgba(14, 28, 46, 0.65);
         border: 1px solid rgba(247, 243, 237, 0.08);
         border-left: 3.5px solid var(--coral);
         border-radius: 0 4px 4px 0;
-        padding: 0.95rem 1.25rem;
+        padding: 1rem 1.3rem;
         margin-bottom: 0.85rem;
     }
     .brand-insight-title {
@@ -345,129 +329,134 @@ st.markdown(
         margin-bottom: 0.25rem;
     }
     .brand-insight-text {
-        font-size: 0.84rem;
+        font-size: 0.85rem;
         color: var(--muted-strong);
-        line-height: 1.5;
+        line-height: 1.55;
         margin: 0;
-    }
-
-    /* Mathematical Notation Box */
-    .brand-math-container {
-        background: #0f1d30;
-        border: 1px solid rgba(58, 191, 178, 0.2);
-        border-left: 3.5px solid var(--teal);
-        border-radius: 6px;
-        padding: 1.15rem 1.35rem;
-        margin: 1rem 0;
-    }
-    .brand-math-title {
-        font-family: var(--ff-mono);
-        font-size: 0.76rem;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: var(--teal);
-        font-weight: 700;
-        margin-bottom: 0.4rem;
     }
 
     /* Section Subheadings */
     .brand-section-header {
         font-family: var(--ff-display);
-        font-size: 1.45rem;
+        font-size: 1.5rem;
         font-weight: 600;
         color: var(--cream);
-        margin-top: 0.75rem;
+        margin-top: 0.85rem;
         margin-bottom: 0.35rem;
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: 0.6rem;
     }
 
-    /* Tabs Styling (Eliminates Streamlit Red Accent) */
+    /* Luxury Segmented Tabs */
     .stTabs [data-baseweb="tab-list"] {
-        gap: 8px;
-        border-bottom: 1px solid rgba(58, 191, 178, 0.2) !important;
-        background: transparent !important;
+        gap: 6px;
+        border-bottom: 1px solid rgba(58, 191, 178, 0.22) !important;
+        background: rgba(7, 14, 24, 0.6) !important;
+        padding: 5px 6px 0 6px !important;
+        border-radius: 6px 6px 0 0 !important;
     }
     .stTabs [data-baseweb="tab"] {
         font-family: var(--ff-mono) !important;
-        font-size: 0.78rem !important;
-        letter-spacing: 0.08em !important;
+        font-size: 0.76rem !important;
+        letter-spacing: 0.1em !important;
         text-transform: uppercase !important;
         color: var(--muted) !important;
         padding: 10px 18px !important;
         border-radius: 4px 4px 0 0 !important;
         background: transparent !important;
-        border-bottom: 2px solid transparent !important;
+        border: 1px solid transparent !important;
+        border-bottom: 2.5px solid transparent !important;
+        transition: all 0.2s ease !important;
     }
     .stTabs [data-baseweb="tab"]:hover {
         color: var(--teal-light) !important;
+        background: rgba(58, 191, 178, 0.05) !important;
     }
     .stTabs [aria-selected="true"] {
         color: var(--teal) !important;
         border-bottom: 2.5px solid var(--teal) !important;
         font-weight: 700 !important;
-        background: rgba(58, 191, 178, 0.05) !important;
+        background: rgba(58, 191, 178, 0.1) !important;
+        border-top: 1px solid rgba(58, 191, 178, 0.25) !important;
+        border-left: 1px solid rgba(58, 191, 178, 0.25) !important;
+        border-right: 1px solid rgba(58, 191, 178, 0.25) !important;
     }
 
-    /* Primary Buttons & Interactive Controls */
+    /* Form Fields & Dark Inputs */
+    div[data-baseweb="select"] > div,
+    div[data-baseweb="input"] > div {
+        background-color: #0c1828 !important;
+        border: 1px solid rgba(58, 191, 178, 0.25) !important;
+        border-radius: 4px !important;
+        color: var(--cream) !important;
+    }
+    div[data-baseweb="select"] > div:hover,
+    div[data-baseweb="input"] > div:hover {
+        border-color: var(--teal) !important;
+    }
+
+    /* Primary Action Buttons */
     div.stButton > button[kind="primary"],
     div.stFormSubmitButton > button {
-        background: var(--teal-dark) !important;
-        color: var(--cream) !important;
-        border: 1px solid var(--teal) !important;
+        background: linear-gradient(135deg, #1E8C82 0%, #156d65 100%) !important;
+        color: var(--warm-white) !important;
+        border: 1px solid #3ABFB2 !important;
         font-family: var(--ff-body) !important;
         font-weight: 600 !important;
-        letter-spacing: 0.05em !important;
+        letter-spacing: 0.06em !important;
         border-radius: 4px !important;
-        padding: 0.55rem 1.35rem !important;
+        padding: 0.6rem 1.4rem !important;
+        box-shadow: 0 4px 14px rgba(30, 140, 130, 0.35) !important;
         transition: all 0.25s ease !important;
     }
     div.stButton > button[kind="primary"]:hover,
     div.stFormSubmitButton > button:hover {
         background: var(--teal) !important;
         color: var(--navy) !important;
-        box-shadow: 0 4px 16px rgba(58, 191, 178, 0.4) !important;
+        box-shadow: 0 6px 20px rgba(58, 191, 178, 0.45) !important;
+        transform: translateY(-1px) !important;
     }
 
     /* Formal Validation Seal */
     .brand-seal-box {
-        margin-top: 2.5rem;
-        padding: 1.35rem 1.65rem;
-        background: #0c182c;
+        margin-top: 2.8rem;
+        padding: 1.45rem 1.85rem;
+        background: linear-gradient(145deg, #091322 0%, #050a12 100%);
         border: 1px solid rgba(58, 191, 178, 0.25);
         border-radius: 6px;
         display: flex;
         justify-content: space-between;
         align-items: center;
         flex-wrap: wrap;
-        gap: 1.25rem;
+        gap: 1.35rem;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
     }
     .brand-seal-title {
         font-family: var(--ff-mono);
         font-size: 0.8rem;
-        letter-spacing: 0.14em;
+        letter-spacing: 0.16em;
         text-transform: uppercase;
         color: var(--teal);
         font-weight: 700;
-        margin-bottom: 0.25rem;
+        margin-bottom: 0.3rem;
     }
     .brand-seal-desc {
         font-size: 0.82rem;
         color: var(--muted);
-        line-height: 1.45;
+        line-height: 1.5;
     }
     .brand-seal-auth {
         text-align: right;
         font-family: var(--ff-mono);
         font-size: 0.78rem;
         color: var(--coral-light);
-        line-height: 1.4;
+        line-height: 1.45;
     }
     .brand-seal-auth strong {
         font-family: var(--ff-display);
-        font-size: 1.1rem;
-        color: var(--cream);
+        font-size: 1.15rem;
+        color: var(--warm-white);
         display: block;
     }
     </style>
@@ -480,8 +469,8 @@ def apply_executive_theme(fig: go.Figure, title: str | None = None) -> go.Figure
     """Applies official AquaBiotics Sur corporate styling to Plotly charts."""
     fig.update_layout(
         template="plotly_dark",
-        paper_bgcolor="#0A1628",
-        plot_bgcolor="#142236",
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(12, 24, 40, 0.45)",
         font=dict(
             family="'Raleway', -apple-system, BlinkMacSystemFont, sans-serif",
             color="#F7F3ED",
@@ -498,7 +487,7 @@ def apply_executive_theme(fig: go.Figure, title: str | None = None) -> go.Figure
         if title
         else None,
         legend=dict(
-            bgcolor="rgba(20, 34, 54, 0.85)",
+            bgcolor="rgba(14, 28, 46, 0.85)",
             bordercolor="rgba(58, 191, 178, 0.25)",
             borderwidth=1,
             font=dict(size=10, color="#F7F3ED", family="'Raleway', sans-serif"),
@@ -506,13 +495,17 @@ def apply_executive_theme(fig: go.Figure, title: str | None = None) -> go.Figure
         xaxis=dict(
             gridcolor="rgba(58, 191, 178, 0.1)",
             zerolinecolor="rgba(58, 191, 178, 0.25)",
-            tickfont=dict(size=10, color="rgba(247, 243, 237, 0.75)", family="'Space Mono', monospace"),
+            tickfont=dict(
+                size=10, color="rgba(247, 243, 237, 0.75)", family="'Space Mono', monospace"
+            ),
             title=dict(font=dict(size=11, color="#3ABFB2", family="'Raleway', sans-serif")),
         ),
         yaxis=dict(
             gridcolor="rgba(58, 191, 178, 0.1)",
             zerolinecolor="rgba(58, 191, 178, 0.25)",
-            tickfont=dict(size=10, color="rgba(247, 243, 237, 0.75)", family="'Space Mono', monospace"),
+            tickfont=dict(
+                size=10, color="rgba(247, 243, 237, 0.75)", family="'Space Mono', monospace"
+            ),
             title=dict(font=dict(size=11, color="#3ABFB2", family="'Raleway', sans-serif")),
         ),
     )
@@ -549,22 +542,22 @@ st.markdown(
         <div class="brand-header-flex">
             <div class="brand-header-text">
                 <div class="brand-label-row">
-                    <span class="brand-pill">AquaBiotics Sur · Bioprocesos &amp; I+D</span>
+                    <span class="brand-pill"><span class="pulse-dot"></span>SISTEMA OPERACIONAL ACTIVO · I+D</span>
                     <span class="brand-doc-code">DOSSIER TÉCNICO · AB-SUR-BPO-2026-v2.2</span>
                 </div>
                 <h1 class="brand-hero-title">
                     Aqua<span style="color: #3ABFB2;">Biotics</span> <span style="color: #D9715A; font-style: italic;">Sur</span>
-                    <span style="font-size: 0.65em; font-weight: 300; opacity: 0.85;">· BioProcess-Optimizer ML</span>
+                    <span style="font-size: 0.62em; font-weight: 300; opacity: 0.85;">· BioProcess-Optimizer ML</span>
                 </h1>
                 <p class="brand-hero-subtitle">
                     Plataforma Institucional de Inteligencia Artificial y Optimización No Lineal Restringida (SciPy SLSQP)
                     para Formulación de Medios de Fermentación y Dietas Acuícolas de Alta Conversión.
                 </p>
                 <div class="brand-meta-grid">
-                    <div class="brand-meta-item"><strong>Motor Numérico:</strong> Sequential Least Squares Programming (KKT &le; 10⁻⁶)</div>
-                    <div class="brand-meta-item"><strong>Garantía Metrológica:</strong> Conservación de Masa Estricta (&Sigma;wᵢ = 1.0000)</div>
-                    <div class="brand-meta-item"><strong>Modelo Subrogante:</strong> Ensamble No Lineal (Validación Cruzada k=5)</div>
-                    <div class="brand-meta-item"><strong>Área de Aplicación:</strong> Biorrefinería &amp; Nutrición de Precisión</div>
+                    <div class="brand-meta-item"><strong>MOTOR NUMÉRICO:</strong> Sequential Least Squares Programming (KKT &le; 10⁻⁶)</div>
+                    <div class="brand-meta-item"><strong>BALANCE DE MASA:</strong> Conservación Estricta (&Sigma;wᵢ = 1.0000)</div>
+                    <div class="brand-meta-item"><strong>MODELO SUBROGANTE:</strong> Ensamble Gradient Boosting (k=5)</div>
+                    <div class="brand-meta-item"><strong>SECTOR:</strong> Biorrefinería &amp; Nutrición de Precisión</div>
                 </div>
             </div>
             <div>
@@ -577,12 +570,17 @@ st.markdown(
 )
 
 # Onboarding & Purpose Guide for First-Time Visitors
-with st.expander("📌 ¿QUÉ ES ESTA PLATAFORMA Y CUÁL ES SU PROPÓSITO? (Guía para Primeros Visitantes)", expanded=True):
+with st.expander(
+    "📌 ¿QUÉ ES ESTA PLATAFORMA Y CUÁL ES SU PROPÓSITO? (Guía para Primeros Visitantes)",
+    expanded=True,
+):
     st.markdown(
         """
         <div class="brand-card teal-accent" style="margin-bottom: 0;">
-            <div class="brand-guide-title">🎯 Propósito Estratégico & Problema Industrial que Resuelve</div>
-            <p class="brand-guide-text">
+            <div style="font-family: var(--ff-mono); font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal); font-weight: 700; margin-bottom: 0.4rem;">
+                🎯 Propósito Estratégico & Problema Industrial que Resuelve
+            </div>
+            <p style="font-size: 0.88rem; color: var(--muted-strong); line-height: 1.6; margin: 0;">
                 En bioprocesos industriales (dietas acuícolas, caldos de fermentación y agroindustria), las materias primas representan entre el
                 <strong>50% y 75% del costo operativo total (OPEX)</strong>. Tradicionalmente, las plantas formulan usando programación lineal clásica (Simplex al mínimo costo).
                 Sin embargo, la biología <strong>no es lineal</strong>: combinar nutrientes produce fenómenos de saturación enzimática, inhibición por sustrato
@@ -592,17 +590,23 @@ with st.expander("📌 ¿QUÉ ES ESTA PLATAFORMA Y CUÁL ES SU PROPÓSITO? (Guí
                 El sistema encuentra la receta exacta que <strong>minimiza el costo en dólares por tonelada</strong> garantizando estrictamente que se alcance
                 la meta biológica requerida por la planta.
             </p>
-            <div class="brand-guide-grid">
-                <div class="brand-guide-col">
-                    <strong>1. Configura Insumos y Precios</strong>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.15rem;">
+                <div style="background: rgba(10, 20, 34, 0.7); border: 1px solid rgba(58, 191, 178, 0.16); border-radius: 4px; padding: 0.95rem 1.1rem; font-size: 0.83rem; color: var(--muted-strong); line-height: 1.45;">
+                    <strong style="font-family: var(--ff-mono); color: var(--coral-light); display: block; margin-bottom: 0.35rem; font-size: 0.76rem; letter-spacing: 0.05em; text-transform: uppercase;">
+                        1. Configura Insumos y Precios
+                    </strong>
                     En el panel lateral izquierdo, selecciona una matriz industrial o edita los costos de mercado (USD/kg) y los límites de inclusión permitidos (% mín/máx).
                 </div>
-                <div class="brand-guide-col">
-                    <strong>2. Define la Meta Biológica</strong>
+                <div style="background: rgba(10, 20, 34, 0.7); border: 1px solid rgba(58, 191, 178, 0.16); border-radius: 4px; padding: 0.95rem 1.1rem; font-size: 0.83rem; color: var(--muted-strong); line-height: 1.45;">
+                    <strong style="font-family: var(--ff-mono); color: var(--teal-light); display: block; margin-bottom: 0.35rem; font-size: 0.76rem; letter-spacing: 0.05em; text-transform: uppercase;">
+                        2. Define la Meta Biológica
+                    </strong>
                     Ajusta el control deslizante (slider) con el rendimiento biológico exigido por tu proceso (ej. 65% de ganancia de peso o biomasa celular).
                 </div>
-                <div class="brand-guide-col">
-                    <strong>3. Analiza el Impacto y Exporta</strong>
+                <div style="background: rgba(10, 20, 34, 0.7); border: 1px solid rgba(58, 191, 178, 0.16); border-radius: 4px; padding: 0.95rem 1.1rem; font-size: 0.83rem; color: var(--muted-strong); line-height: 1.45;">
+                    <strong style="font-family: var(--ff-mono); color: var(--lavender-light); display: block; margin-bottom: 0.35rem; font-size: 0.76rem; letter-spacing: 0.05em; text-transform: uppercase;">
+                        3. Analiza el Impacto y Exporta
+                    </strong>
                     Revisa el costo por tonelada y el ahorro generado, examina el trade-off en la Frontera de Pareto, comprende el porqué con SHAP y descarga la receta para ERP/LIMS.
                 </div>
             </div>
@@ -621,15 +625,30 @@ PRESET_TEMPLATES: dict[str, dict[str, Any]] = {
             {"name": "Proteína / Hidrolizado Marino", "cost": 2.30, "min": 0.15, "max": 0.45},
             {"name": "Fuente Nitrógeno Fermentativo", "cost": 1.45, "min": 0.10, "max": 0.40},
             {"name": "Suplemento Microelementos & Taurina", "cost": 4.10, "min": 0.02, "max": 0.12},
-            {"name": "Vehículo Base Energético (Carbohidrato)", "cost": 0.60, "min": 0.15, "max": 0.60},
+            {
+                "name": "Vehículo Base Energético (Carbohidrato)",
+                "cost": 0.60,
+                "min": 0.15,
+                "max": 0.60,
+            },
         ],
     },
     "Fermentación de Precisión & Biomasa Microbiana": {
         "slug": "ferment",
         "target_yield": 74.0,
         "ingredients": [
-            {"name": "Glucosa Grado Farmacéutico (C-Source)", "cost": 0.85, "min": 0.25, "max": 0.55},
-            {"name": "Extracto de Levadura / Peptona (N-Source)", "cost": 3.40, "min": 0.10, "max": 0.35},
+            {
+                "name": "Glucosa Grado Farmacéutico (C-Source)",
+                "cost": 0.85,
+                "min": 0.25,
+                "max": 0.55,
+            },
+            {
+                "name": "Extracto de Levadura / Peptona (N-Source)",
+                "cost": 3.40,
+                "min": 0.10,
+                "max": 0.35,
+            },
             {"name": "Sales Minerales & Oligoelementos", "cost": 1.80, "min": 0.03, "max": 0.15},
             {"name": "Solución Reguladora de pH / Buffer", "cost": 0.45, "min": 0.10, "max": 0.40},
         ],
@@ -638,9 +657,19 @@ PRESET_TEMPLATES: dict[str, dict[str, Any]] = {
         "slug": "agro",
         "target_yield": 58.0,
         "ingredients": [
-            {"name": "Aislado Proteico Vegetal (Soya/Legumbre)", "cost": 1.75, "min": 0.20, "max": 0.50},
+            {
+                "name": "Aislado Proteico Vegetal (Soya/Legumbre)",
+                "cost": 1.75,
+                "min": 0.20,
+                "max": 0.50,
+            },
             {"name": "Almidón Termoplástico Modificado", "cost": 0.55, "min": 0.20, "max": 0.55},
-            {"name": "Lípidos Funcionales & Omega-3 Microalgal", "cost": 5.20, "min": 0.02, "max": 0.10},
+            {
+                "name": "Lípidos Funcionales & Omega-3 Microalgal",
+                "cost": 5.20,
+                "min": 0.02,
+                "max": 0.10,
+            },
             {"name": "Fibra Dietaria & Relleno Inerte", "cost": 0.35, "min": 0.10, "max": 0.40},
         ],
     },
@@ -663,10 +692,12 @@ def get_cached_pareto(ing_tuple: tuple[tuple[str, float, float, float], ...]) ->
             )
             # Solo conservamos soluciones donde el solver convergió factiblemente
             if res_sim.success and res_sim.predicted_yield_pct >= (y_target - 0.25):
-                pareto_records.append({
-                    "Target Yield (%)": round(float(y_target), 1),
-                    "Cost (USD/Ton)": round(res_sim.cost_usd_per_ton, 2),
-                })
+                pareto_records.append(
+                    {
+                        "Target Yield (%)": round(float(y_target), 1),
+                        "Cost (USD/Ton)": round(res_sim.cost_usd_per_ton, 2),
+                    }
+                )
         except Exception:
             pass
 
@@ -695,17 +726,35 @@ with st.sidebar.form(key=f"form_{preset_slug}"):
         ing_cost = item["cost"]
         ing_min = item["min"]
         ing_max = item["max"]
-        st.markdown(f"**{i+1}. {ing_name}**")
+        st.markdown(f"**{i + 1}. {ing_name}**")
         c1, c2, c3 = st.columns(3)
         cost = float(
-            c1.number_input(f"USD/kg #{i+1}", value=ing_cost, step=0.1, key=f"{preset_slug}_cost_{i}")
+            c1.number_input(
+                f"USD/kg #{i + 1}", value=ing_cost, step=0.1, key=f"{preset_slug}_cost_{i}"
+            )
         )
-        min_f = float(
-            c2.number_input(f"Mín % #{i+1}", value=int(ing_min * 100), step=1, key=f"{preset_slug}_min_{i}")
-        ) / 100.0
-        max_f = float(
-            c3.number_input(f"Máx % #{i+1}", value=int(ing_max * 100), step=1, key=f"{preset_slug}_max_{i}")
-        ) / 100.0
+        min_f = (
+            float(
+                c2.number_input(
+                    f"Mín % #{i + 1}",
+                    value=int(ing_min * 100),
+                    step=1,
+                    key=f"{preset_slug}_min_{i}",
+                )
+            )
+            / 100.0
+        )
+        max_f = (
+            float(
+                c3.number_input(
+                    f"Máx % #{i + 1}",
+                    value=int(ing_max * 100),
+                    step=1,
+                    key=f"{preset_slug}_max_{i}",
+                )
+            )
+            / 100.0
+        )
         ingredients_input.append(
             IngredientSpec(name=ing_name, cost_per_kg=cost, min_fraction=min_f, max_fraction=max_f)
         )
@@ -735,7 +784,9 @@ try:
         sum(ing.cost_per_kg * w for ing, w in zip(ingredients_input, baseline_w, strict=False))
         * 1000.0
     )
-    savings_pct = max(0.0, ((baseline_cost_ton - result.cost_usd_per_ton) / baseline_cost_ton) * 100.0)
+    savings_pct = max(
+        0.0, ((baseline_cost_ton - result.cost_usd_per_ton) / baseline_cost_ton) * 100.0
+    )
 
     # Executive KPI Dashboard Cards (AquaBiotics Sur Style)
     kpi_col1, kpi_col2, kpi_col3, kpi_col4 = st.columns(4)
@@ -744,7 +795,7 @@ try:
         st.markdown(
             f"""
             <div class="brand-kpi-card coral-top">
-                <div class="brand-kpi-label">Costo Optimizado (USD/Ton)</div>
+                <div class="brand-kpi-label">COSTO OPTIMIZADO (USD/TON)</div>
                 <div class="brand-kpi-val">${result.cost_usd_per_ton:,.2f}</div>
                 <div class="brand-kpi-badge badge-coral">-{savings_pct:.1f}% vs. Dieta Base</div>
             </div>
@@ -756,7 +807,7 @@ try:
         st.markdown(
             f"""
             <div class="brand-kpi-card">
-                <div class="brand-kpi-label">Rendimiento Biológico</div>
+                <div class="brand-kpi-label">RENDIMIENTO BIOLÓGICO</div>
                 <div class="brand-kpi-val">{result.predicted_yield_pct:.2f}%</div>
                 <div class="brand-kpi-badge badge-teal">Meta Mínima: {target_yield:.1f}%</div>
             </div>
@@ -768,7 +819,7 @@ try:
         st.markdown(
             f"""
             <div class="brand-kpi-card lavender-top">
-                <div class="brand-kpi-label">Iteraciones Solver SLSQP</div>
+                <div class="brand-kpi-label">ITERACIONES SOLVER SLSQP</div>
                 <div class="brand-kpi-val">{result.iterations} it</div>
                 <div class="brand-kpi-badge badge-lavender">KKT &le; 10⁻⁶</div>
             </div>
@@ -782,7 +833,7 @@ try:
         st.markdown(
             f"""
             <div class="brand-kpi-card steel-top">
-                <div class="brand-kpi-label">Estado de Solución</div>
+                <div class="brand-kpi-label">ESTADO DE SOLUCIÓN</div>
                 <div class="brand-kpi-val">{status_label}</div>
                 <div class="brand-kpi-badge {status_badge}">Simplex &Sigma;wᵢ = 1.0000</div>
             </div>
@@ -834,11 +885,15 @@ try:
     st.markdown("<div style='height: 0.5rem;'></div>", unsafe_allow_html=True)
 
     # Formal Mathematical Callout Box (Scientific Formula Typesetting Skill)
-    with st.expander("📐 Formulación Matemática & Modelo de Optimización (Constrained SLSQP)", expanded=False):
+    with st.expander(
+        "📐 Formulación Matemática & Modelo de Optimización (Constrained SLSQP)", expanded=False
+    ):
         st.markdown(
             """
-            <div class="brand-math-container">
-                <div class="brand-math-title">Problema Primal de Minimización Económica bajo Restricciones Biológicas</div>
+            <div style="background: rgba(10, 20, 34, 0.7); border: 1px solid rgba(58, 191, 178, 0.2); border-left: 3.5px solid var(--teal); border-radius: 6px; padding: 1.15rem 1.35rem; margin: 1rem 0;">
+                <div style="font-family: var(--ff-mono); font-size: 0.76rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal); font-weight: 700; margin-bottom: 0.4rem;">
+                    Problema Primal de Minimización Económica bajo Restricciones Biológicas
+                </div>
                 <p style="color: var(--muted-strong); font-size: 0.88rem; margin-bottom: 0.5rem;">
                     El algoritmo resuelve el problema de programación no lineal secuencial formulado como:
                 </p>
@@ -863,15 +918,20 @@ try:
         )
 
     # Main Tabs
-    tab1, tab2, tab3, tab4 = st.tabs([
-        "📊 Composición Óptima & Frontera de Pareto",
-        "🔍 Explicabilidad Fisicoquímica SHAP",
-        "📄 Ficha Técnica LIMS / ERP",
-        "📜 Memoria de Cálculo & Garantía Metrológica",
-    ])
+    tab1, tab2, tab3, tab4 = st.tabs(
+        [
+            "📊 Composición Óptima & Frontera de Pareto",
+            "🔍 Explicabilidad Fisicoquímica SHAP",
+            "📄 Ficha Técnica LIMS / ERP",
+            "📜 Memoria de Cálculo & Garantía Metrológica",
+        ]
+    )
 
     with tab1:
-        st.markdown('<div class="brand-section-header">Distribución de Insumos vs. Frontera Eficiente de Pareto</div>', unsafe_allow_html=True)
+        st.markdown(
+            '<div class="brand-section-header">Distribución de Insumos vs. Frontera Eficiente de Pareto</div>',
+            unsafe_allow_html=True,
+        )
         st.markdown(
             """
             <div class="brand-card teal-accent" style="margin-bottom: 1.25rem;">
@@ -887,10 +947,18 @@ try:
             unsafe_allow_html=True,
         )
 
-        df_res = pd.DataFrame([
-            {"Ingrediente": k, "Inclusión (%)": v * 100.0, "Costo Insumo (USD/kg)": ing.cost_per_kg}
-            for (k, v), ing in zip(result.optimal_fractions.items(), ingredients_input, strict=False)
-        ])
+        df_res = pd.DataFrame(
+            [
+                {
+                    "Ingrediente": k,
+                    "Inclusión (%)": v * 100.0,
+                    "Costo Insumo (USD/kg)": ing.cost_per_kg,
+                }
+                for (k, v), ing in zip(
+                    result.optimal_fractions.items(), ingredients_input, strict=False
+                )
+            ]
+        )
 
         col_left, col_right = st.columns([1, 1])
         with col_left:
@@ -924,11 +992,13 @@ try:
                     title=None,
                 ),
                 xaxis=dict(
-                    title=dict(text="Inclusión en Mezcla (% p/p)", font=dict(size=11, color="#3ABFB2")),
+                    title=dict(
+                        text="Inclusión en Mezcla (% p/p)", font=dict(size=11, color="#3ABFB2")
+                    ),
                     range=[0, max(50.0, max_val * 1.25)],
                 ),
             )
-            st.plotly_chart(fig_bar, width="stretch")
+            st.plotly_chart(fig_bar, width="stretch", config={"displayModeBar": False})
 
         with col_right:
             ing_tuple = tuple(
@@ -960,7 +1030,9 @@ try:
                     name="Receta Actual",
                     text=["  Punto Óptimo"],
                     textposition="bottom right",
-                    marker=dict(size=14, color="#D9715A", symbol="star", line=dict(width=2, color="#FAFAF8")),
+                    marker=dict(
+                        size=14, color="#D9715A", symbol="star", line=dict(width=2, color="#FAFAF8")
+                    ),
                 )
             )
             fig_pareto = apply_executive_theme(
@@ -975,21 +1047,23 @@ try:
                     y=1.02,
                     xanchor="right",
                     x=1.0,
-                    bgcolor="rgba(20, 34, 54, 0.8)",
+                    bgcolor="rgba(14, 28, 46, 0.8)",
                     bordercolor="rgba(58, 191, 178, 0.25)",
                     borderwidth=1,
                     font=dict(size=10, color="#F7F3ED"),
                 ),
             )
             fig_pareto.update_xaxes(
-                title=dict(text="Rendimiento Biológico Meta (%)", font=dict(size=11, color="#3ABFB2")),
+                title=dict(
+                    text="Rendimiento Biológico Meta (%)", font=dict(size=11, color="#3ABFB2")
+                ),
                 ticksuffix="%",
             )
             fig_pareto.update_yaxes(
                 title=dict(text="Costo (USD / Ton)", font=dict(size=11, color="#3ABFB2")),
                 tickprefix="$",
             )
-            st.plotly_chart(fig_pareto, width="stretch")
+            st.plotly_chart(fig_pareto, width="stretch", config={"displayModeBar": False})
 
         st.caption(
             "**Análisis Económico:** La curva de Pareto ilustra la Tasa Marginal de Sustitución Técnica (TMST). "
@@ -1045,9 +1119,7 @@ try:
         wf_y = [y_base_pred] + scaled_deltas + [y_opt_pred]
         wf_measure = ["absolute"] + ["relative"] * n_ing + ["total"]
         wf_text = (
-            [f"{y_base_pred:.1f}%"]
-            + [f"{v:+.2f}%" for v in scaled_deltas]
-            + [f"{y_opt_pred:.1f}%"]
+            [f"{y_base_pred:.1f}%"] + [f"{v:+.2f}%" for v in scaled_deltas] + [f"{y_opt_pred:.1f}%"]
         )
 
         fig_wf = go.Figure(
@@ -1059,18 +1131,23 @@ try:
                 y=wf_y,
                 text=wf_text,
                 textposition="outside",
-                connector={"line": {"color": "rgba(247, 243, 237, 0.3)", "width": 1.5, "dash": "solid"}},
+                connector={
+                    "line": {"color": "rgba(247, 243, 237, 0.3)", "width": 1.5, "dash": "solid"}
+                },
                 decreasing={"marker": {"color": "#D9715A"}},  # Coral Taurine
                 increasing={"marker": {"color": "#3ABFB2"}},  # Marine Teal
-                totals={"marker": {"color": "#7ADBD3"}},      # Light Teal
+                totals={"marker": {"color": "#7ADBD3"}},  # Light Teal
             )
         )
-        fig_wf = apply_executive_theme(fig_wf, "Cascada de Contribuciones Aditivas (Atribución SHAP)")
+        fig_wf = apply_executive_theme(
+            fig_wf, "Cascada de Contribuciones Aditivas (Atribución SHAP)"
+        )
         fig_wf.update_layout(
+            height=380,
             waterfallgap=0.3,
             yaxis=dict(title="Rendimiento Predicho (%)", range=[30, 100]),
         )
-        st.plotly_chart(fig_wf, width="stretch")
+        st.plotly_chart(fig_wf, width="stretch", config={"displayModeBar": False})
 
         st.markdown(
             """
@@ -1090,7 +1167,10 @@ try:
         )
 
     with tab3:
-        st.markdown('<div class="brand-section-header">Contratos de Datos & Exportación Estructurada</div>', unsafe_allow_html=True)
+        st.markdown(
+            '<div class="brand-section-header">Contratos de Datos & Exportación Estructurada</div>',
+            unsafe_allow_html=True,
+        )
         st.markdown(
             """
             <div class="brand-card" style="border-left: 3.5px solid var(--steel); margin-bottom: 1.25rem;">
@@ -1111,7 +1191,9 @@ try:
         col_json, col_csv = st.columns(2)
         with col_json:
             st.markdown("#### 📦 Ficha Técnica LIMS / ERP (JSON Pydantic v2)")
-            st.caption("Estructura tipada y serializable lista para ingesta automática en sistemas SAP / SCADA.")
+            st.caption(
+                "Estructura tipada y serializable lista para ingesta automática en sistemas SAP / SCADA."
+            )
             st.json(result.model_dump())
             st.download_button(
                 label="⬇️ Descargar Ficha Técnica JSON",
@@ -1135,7 +1217,10 @@ try:
             )
 
     with tab4:
-        st.markdown('<div class="brand-section-header">Memoria de Cálculo & Garantía Metrológica</div>', unsafe_allow_html=True)
+        st.markdown(
+            '<div class="brand-section-header">Memoria de Cálculo & Garantía Metrológica</div>',
+            unsafe_allow_html=True,
+        )
         st.markdown(
             r"""
             ### 1. Marco Teórico y Arquitectura Algorítmica
