@@ -2,7 +2,6 @@
 Pydantic v2 Schemas and Data Contracts for Bioprocess Optimization.
 """
 
-from typing import Dict, List
 from pydantic import BaseModel, Field, model_validator
 
 
@@ -26,7 +25,7 @@ class IngredientSpec(BaseModel):
 
 
 class OptimizationRequest(BaseModel):
-    ingredients: List[IngredientSpec] = Field(
+    ingredients: list[IngredientSpec] = Field(
         ..., min_length=2, description="Lista de ingredientes a formular (mínimo 2)"
     )
     min_target_yield: float = Field(
@@ -51,7 +50,7 @@ class OptimizationRequest(BaseModel):
 class OptimizationResult(BaseModel):
     success: bool
     status_message: str
-    optimal_fractions: Dict[str, float] = Field(
+    optimal_fractions: dict[str, float] = Field(
         ..., description="Fracciones óptimas asignadas a cada ingrediente (suman 1.0)"
     )
     cost_usd_per_kg: float

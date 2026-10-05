@@ -2,7 +2,6 @@
 Unit tests for Formulation Optimizer and Pydantic Contracts.
 """
 
-import numpy as np
 import pytest
 from pydantic import ValidationError
 

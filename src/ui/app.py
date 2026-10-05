@@ -86,7 +86,10 @@ if st.sidebar.button("🚀 Ejecutar Optimización", type="primary", use_containe
         # Baseline: Formulación equitativa para comparación de ROI
         n_ing = len(ingredients_input)
         baseline_w = np.full(n_ing, 1.0 / n_ing)
-        baseline_cost_ton = sum(ing.cost_per_kg * w for ing, w in zip(ingredients_input, baseline_w)) * 1000.0
+        baseline_cost_ton = (
+            sum(ing.cost_per_kg * w for ing, w in zip(ingredients_input, baseline_w, strict=False))
+            * 1000.0
+        )
         savings_pct = max(0.0, ((baseline_cost_ton - result.cost_usd_per_ton) / baseline_cost_ton) * 100.0)
 
         # Metric Cards
@@ -99,7 +102,7 @@ if st.sidebar.button("🚀 Ejecutar Optimización", type="primary", use_containe
         st.markdown("### 📊 Composición Óptima vs. Costo Marginal")
         df_res = pd.DataFrame([
             {"Ingrediente": k, "Inclusión (%)": v * 100.0, "Costo Insumo (USD/kg)": ing.cost_per_kg}
-            for (k, v), ing in zip(result.optimal_fractions.items(), ingredients_input)
+            for (k, v), ing in zip(result.optimal_fractions.items(), ingredients_input, strict=False)
         ])
 
         col_left, col_right = st.columns([1, 1])

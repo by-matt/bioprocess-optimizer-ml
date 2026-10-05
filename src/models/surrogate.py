@@ -3,7 +3,6 @@ Surrogate Model Module: Fast predictive proxy for bioprocess yields.
 Author: Byron Calderón González
 """
 
-from typing import Tuple
 import numpy as np
 from sklearn.linear_model import Ridge
 from sklearn.model_selection import cross_val_score
@@ -26,7 +25,7 @@ class SurrogateYieldModel:
     @staticmethod
     def generate_synthetic_data(
         n_samples: int = 250, n_features: int = 4, random_state: int = 42
-    ) -> Tuple[np.ndarray, np.ndarray]:
+    ) -> tuple[np.ndarray, np.ndarray]:
         """Genera datos sintéticos calibrados bajo leyes de saturación bioquímica (Monod/Hill)."""
         rng = np.random.RandomState(random_state)
         # Generar fracciones en un simplex (suman 1.0)

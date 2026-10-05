@@ -3,7 +3,6 @@ Formulation Optimizer Solver using SciPy SLSQP and Surrogate Model.
 Author: Byron Calderón González
 """
 
-from typing import Dict
 import numpy as np
 from scipy.optimize import minimize
 
@@ -21,7 +20,6 @@ class FormulationOptimizer:
 
     def optimize(self, request: OptimizationRequest) -> OptimizationResult:
         """Ejecuta la optimización con restricciones duras."""
-        n = len(request.ingredients)
         costs = np.array([ing.cost_per_kg for ing in request.ingredients], dtype=np.float64)
 
         # Condición inicial factible: punto medio normalizado dentro de límites
@@ -71,8 +69,9 @@ class FormulationOptimizer:
         cost_ton = cost_kg * 1000.0
         pred_yield = float(self.surrogate.predict(optimal_w.reshape(1, -1))[0])
 
-        fractions_dict: Dict[str, float] = {
-            ing.name: round(float(w), 4) for ing, w in zip(request.ingredients, optimal_w)
+        fractions_dict: dict[str, float] = {
+            ing.name: round(float(w), 4)
+            for ing, w in zip(request.ingredients, optimal_w, strict=False)
         }
 
         return OptimizationResult(
