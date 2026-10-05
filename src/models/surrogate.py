@@ -1,6 +1,6 @@
 """
 Surrogate Model Module: Fast predictive proxy for bioprocess yields.
-Author: Byron Calderón González
+Institutional Attribution: AquaBiotics Sur · Dirección de I+D
 """
 
 import numpy as np
@@ -15,10 +15,12 @@ class SurrogateYieldModel:
 
     def __init__(self, random_state: int = 42) -> None:
         self.random_state = random_state
-        self.model = Pipeline([
-            ("poly", PolynomialFeatures(degree=2, include_bias=False)),
-            ("ridge", Ridge(alpha=0.5, random_state=self.random_state)),
-        ])
+        self.model = Pipeline(
+            [
+                ("poly", PolynomialFeatures(degree=2, include_bias=False)),
+                ("ridge", Ridge(alpha=0.5, random_state=self.random_state)),
+            ]
+        )
         self.is_fitted: bool = False
         self.cv_r2_score: float = 0.0
 

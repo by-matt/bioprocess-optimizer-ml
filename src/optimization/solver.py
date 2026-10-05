@@ -1,6 +1,6 @@
 """
 Formulation Optimizer Solver using SciPy SLSQP and Surrogate Model.
-Author: Byron Calderón González
+Institutional Attribution: AquaBiotics Sur · Dirección de I+D
 """
 
 import numpy as np

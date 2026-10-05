@@ -117,10 +117,18 @@ surrogate.fit(X, y)
 
 # 2. Define Industrial Ingredients and Bounds
 ingredients = [
-    IngredientSpec(name="Marine Protein Hydrolysate", cost_per_kg=2.30, min_fraction=0.15, max_fraction=0.45),
-    IngredientSpec(name="Fermentative Nitrogen Source", cost_per_kg=1.45, min_fraction=0.10, max_fraction=0.40),
-    IngredientSpec(name="Taurine & Micronutrient Blend", cost_per_kg=4.10, min_fraction=0.02, max_fraction=0.12),
-    IngredientSpec(name="Energy Carrier (Carbohydrate)", cost_per_kg=0.60, min_fraction=0.15, max_fraction=0.60),
+    IngredientSpec(
+        name="Marine Protein Hydrolysate", cost_per_kg=2.30, min_fraction=0.15, max_fraction=0.45
+    ),
+    IngredientSpec(
+        name="Fermentative Nitrogen Source", cost_per_kg=1.45, min_fraction=0.10, max_fraction=0.40
+    ),
+    IngredientSpec(
+        name="Taurine & Micronutrient Blend", cost_per_kg=4.10, min_fraction=0.02, max_fraction=0.12
+    ),
+    IngredientSpec(
+        name="Energy Carrier (Carbohydrate)", cost_per_kg=0.60, min_fraction=0.15, max_fraction=0.60
+    ),
 ]
 
 # 3. Solve Constrained Optimization

@@ -9,10 +9,16 @@ class IngredientSpec(BaseModel):
     name: str = Field(..., description="Nombre comercial o químico del ingrediente")
     cost_per_kg: float = Field(..., gt=0.0, description="Costo unitario en USD por kilogramo")
     min_fraction: float = Field(
-        0.0, ge=0.0, le=1.0, description="Fracción mínima de inclusión en la formulación (0.0 a 1.0)"
+        0.0,
+        ge=0.0,
+        le=1.0,
+        description="Fracción mínima de inclusión en la formulación (0.0 a 1.0)",
     )
     max_fraction: float = Field(
-        1.0, ge=0.0, le=1.0, description="Fracción máxima de inclusión en la formulación (0.0 a 1.0)"
+        1.0,
+        ge=0.0,
+        le=1.0,
+        description="Fracción máxima de inclusión en la formulación (0.0 a 1.0)",
     )
 
     @model_validator(mode="after")

@@ -24,7 +24,9 @@ def trained_surrogate() -> SurrogateYieldModel:
 
 def test_ingredient_spec_validation() -> None:
     # Caso válido
-    ing = IngredientSpec(name="Harina de Pescado", cost_per_kg=1.85, min_fraction=0.1, max_fraction=0.4)
+    ing = IngredientSpec(
+        name="Harina de Pescado", cost_per_kg=1.85, min_fraction=0.1, max_fraction=0.4
+    )
     assert ing.name == "Harina de Pescado"
 
     # Caso inválido: min > max
@@ -48,10 +50,18 @@ def test_solver_success_and_constraints(trained_surrogate: SurrogateYieldModel) 
     optimizer = FormulationOptimizer(trained_surrogate)
 
     ingredients = [
-        IngredientSpec(name="Proteína Concentrada", cost_per_kg=2.20, min_fraction=0.15, max_fraction=0.50),
-        IngredientSpec(name="Fuente Nitrógeno Orgánico", cost_per_kg=1.40, min_fraction=0.10, max_fraction=0.40),
-        IngredientSpec(name="Premezcla Mineral", cost_per_kg=3.50, min_fraction=0.02, max_fraction=0.15),
-        IngredientSpec(name="Carbohidrato Energético", cost_per_kg=0.65, min_fraction=0.10, max_fraction=0.60),
+        IngredientSpec(
+            name="Proteína Concentrada", cost_per_kg=2.20, min_fraction=0.15, max_fraction=0.50
+        ),
+        IngredientSpec(
+            name="Fuente Nitrógeno Orgánico", cost_per_kg=1.40, min_fraction=0.10, max_fraction=0.40
+        ),
+        IngredientSpec(
+            name="Premezcla Mineral", cost_per_kg=3.50, min_fraction=0.02, max_fraction=0.15
+        ),
+        IngredientSpec(
+            name="Carbohidrato Energético", cost_per_kg=0.65, min_fraction=0.10, max_fraction=0.60
+        ),
     ]
 
     target_yield = 60.0
