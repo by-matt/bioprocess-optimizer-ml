@@ -58,4 +58,5 @@ class SurrogateYieldModel:
         """Predice el rendimiento del bioproceso."""
         if not self.is_fitted:
             raise RuntimeError("El modelo sustituto debe entrenarse antes de predecir.")
-        return self.model.predict(X)
+        preds: np.ndarray = np.asarray(self.model.predict(X))
+        return preds

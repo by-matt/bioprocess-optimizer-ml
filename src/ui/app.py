@@ -59,15 +59,19 @@ default_ingredients = [
 ]
 
 st.sidebar.subheader("Parámetros por Ingrediente")
-ingredients_input = []
+ingredients_input: list[IngredientSpec] = []
 for i, item in enumerate(default_ingredients):
-    st.sidebar.markdown(f"**{item['name']}**")
+    ing_name = str(item["name"])
+    ing_cost = float(item["cost"])
+    ing_min = float(item["min"])
+    ing_max = float(item["max"])
+    st.sidebar.markdown(f"**{ing_name}**")
     c1, c2, c3 = st.sidebar.columns(3)
-    cost = c1.number_input(f"USD/kg #{i+1}", value=item["cost"], step=0.1, key=f"cost_{i}")
-    min_f = c2.number_input(f"Mín % #{i+1}", value=int(item["min"] * 100), step=1, key=f"min_{i}") / 100.0
-    max_f = c3.number_input(f"Máx % #{i+1}", value=int(item["max"] * 100), step=1, key=f"max_{i}") / 100.0
+    cost = float(c1.number_input(f"USD/kg #{i+1}", value=ing_cost, step=0.1, key=f"cost_{i}"))
+    min_f = float(c2.number_input(f"Mín % #{i+1}", value=int(ing_min * 100), step=1, key=f"min_{i}")) / 100.0
+    max_f = float(c3.number_input(f"Máx % #{i+1}", value=int(ing_max * 100), step=1, key=f"max_{i}")) / 100.0
     ingredients_input.append(
-        IngredientSpec(name=item["name"], cost_per_kg=cost, min_fraction=min_f, max_fraction=max_f)
+        IngredientSpec(name=ing_name, cost_per_kg=cost, min_fraction=min_f, max_fraction=max_f)
     )
 
 target_yield = st.sidebar.slider(
@@ -122,7 +126,7 @@ if st.sidebar.button("🚀 Ejecutar Optimización", type="primary", use_containe
         with col_right:
             # Simulación de Frontera de Pareto
             yield_range = np.linspace(45.0, 85.0, 15)
-            pareto_costs = []
+            pareto_costs: list[float | None] = []
             for y_target in yield_range:
                 try:
                     res_sim = optimizer.optimize(
