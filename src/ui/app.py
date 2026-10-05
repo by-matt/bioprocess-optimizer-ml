@@ -3,7 +3,7 @@ Streamlit Web Application: BioProcess-Optimizer ML
 Author: Byron Calderón González (github.com/by-matt)
 """
 
-from typing import TypedDict
+from typing import Any, TypedDict
 import numpy as np
 import pandas as pd
 import plotly.express as px
@@ -51,21 +51,48 @@ st.markdown("---")
 
 # Sidebar Configuration
 st.sidebar.header("🛠️ Configuración de Insumos")
+PRESET_TEMPLATES: dict[str, dict[str, Any]] = {
+    "Acuicultura / Nutrición Marina (AquaBiotics Core)": {
+        "slug": "aqua",
+        "target_yield": 65.0,
+        "ingredients": [
+            {"name": "Proteína / Hidrolizado Marino", "cost": 2.30, "min": 0.15, "max": 0.45},
+            {"name": "Fuente Nitrógeno Fermentativo", "cost": 1.45, "min": 0.10, "max": 0.40},
+            {"name": "Suplemento Microelementos & Taurina", "cost": 4.10, "min": 0.02, "max": 0.12},
+            {"name": "Vehículo Base Energético (Carbohidrato)", "cost": 0.60, "min": 0.15, "max": 0.60},
+        ],
+    },
+    "Fermentación de Precisión & Biomasa Microbiana": {
+        "slug": "ferment",
+        "target_yield": 74.0,
+        "ingredients": [
+            {"name": "Glucosa Grado Farmacéutico (C-Source)", "cost": 0.85, "min": 0.25, "max": 0.55},
+            {"name": "Extracto de Levadura / Peptona (N-Source)", "cost": 3.40, "min": 0.10, "max": 0.35},
+            {"name": "Sales Minerales & Oligoelementos", "cost": 1.80, "min": 0.03, "max": 0.15},
+            {"name": "Solución Reguladora de pH / Buffer", "cost": 0.45, "min": 0.10, "max": 0.40},
+        ],
+    },
+    "Ingredientes Funcionales & Agroindustria": {
+        "slug": "agro",
+        "target_yield": 58.0,
+        "ingredients": [
+            {"name": "Aislado Proteico Vegetal (Soya/Legumbre)", "cost": 1.75, "min": 0.20, "max": 0.50},
+            {"name": "Almidón Termoplástico Modificado", "cost": 0.55, "min": 0.20, "max": 0.55},
+            {"name": "Lípidos Funcionales & Omega-3 Microalgal", "cost": 5.20, "min": 0.02, "max": 0.10},
+            {"name": "Fibra Dietaria & Relleno Inerte", "cost": 0.35, "min": 0.10, "max": 0.40},
+        ],
+    },
+}
+
 preset = st.sidebar.selectbox(
     "Plantilla de Formulación Industrial:",
-    [
-        "Acuicultura / Nutrición Marina (AquaBiotics Core)",
-        "Fermentación de Precisión & Biomasa Microbiana",
-        "Ingredientes Funcionales & Agroindustria",
-    ],
+    list(PRESET_TEMPLATES.keys()),
 )
 
-default_ingredients: list[DefaultIngredient] = [
-    {"name": "Proteína / Hidrolizado Marino", "cost": 2.30, "min": 0.15, "max": 0.45},
-    {"name": "Fuente Nitrógeno Fermentativo", "cost": 1.45, "min": 0.10, "max": 0.40},
-    {"name": "Suplemento Microelementos & Taurina", "cost": 4.10, "min": 0.02, "max": 0.12},
-    {"name": "Vehículo Base Energético (Carbohidrato)", "cost": 0.60, "min": 0.15, "max": 0.60},
-]
+selected_preset = PRESET_TEMPLATES[preset]
+preset_slug = str(selected_preset["slug"])
+default_ingredients: list[DefaultIngredient] = selected_preset["ingredients"]
+default_yield: float = float(selected_preset["target_yield"])
 
 st.sidebar.subheader("Parámetros por Ingrediente")
 ingredients_input: list[IngredientSpec] = []
@@ -76,9 +103,15 @@ for i, item in enumerate(default_ingredients):
     ing_max = item["max"]
     st.sidebar.markdown(f"**{ing_name}**")
     c1, c2, c3 = st.sidebar.columns(3)
-    cost = float(c1.number_input(f"USD/kg #{i+1}", value=ing_cost, step=0.1, key=f"cost_{i}"))
-    min_f = float(c2.number_input(f"Mín % #{i+1}", value=int(ing_min * 100), step=1, key=f"min_{i}")) / 100.0
-    max_f = float(c3.number_input(f"Máx % #{i+1}", value=int(ing_max * 100), step=1, key=f"max_{i}")) / 100.0
+    cost = float(
+        c1.number_input(f"USD/kg #{i+1}", value=ing_cost, step=0.1, key=f"{preset_slug}_cost_{i}")
+    )
+    min_f = float(
+        c2.number_input(f"Mín % #{i+1}", value=int(ing_min * 100), step=1, key=f"{preset_slug}_min_{i}")
+    ) / 100.0
+    max_f = float(
+        c3.number_input(f"Máx % #{i+1}", value=int(ing_max * 100), step=1, key=f"{preset_slug}_max_{i}")
+    ) / 100.0
     ingredients_input.append(
         IngredientSpec(name=ing_name, cost_per_kg=cost, min_fraction=min_f, max_fraction=max_f)
     )
@@ -87,8 +120,9 @@ target_yield = st.sidebar.slider(
     "🎯 Rendimiento Biológico Mínimo Requerido (%)",
     min_value=40.0,
     max_value=90.0,
-    value=65.0,
+    value=default_yield,
     step=1.0,
+    key=f"{preset_slug}_yield_slider",
 )
 
 st.sidebar.button("🚀 Re-calcular Formulación", type="primary", use_container_width=True)
