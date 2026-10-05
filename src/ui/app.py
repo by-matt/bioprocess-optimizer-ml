@@ -73,9 +73,15 @@ st.markdown(
         --ff-mono: 'Space Mono', monospace;
     }
 
-    /* Core Canvas - Solid Oceanic Navy, Zero Artificial Glows */
+    /* Viewport Ergonomics & Clean Shell */
     #MainMenu, footer { visibility: hidden !important; }
     header[data-testid="stHeader"] { background: transparent !important; }
+
+    .block-container {
+        padding-top: 1.5rem !important;
+        padding-bottom: 2.5rem !important;
+        max-width: 1320px !important;
+    }
 
     .stApp {
         background-color: var(--navy);
@@ -363,7 +369,39 @@ st.markdown(
         background: transparent !important;
     }
 
-    /* Form Fields & Dark Inputs */
+    /* Executive Streamlit Slider Overrides */
+    div[data-testid="stSlider"] div[role="slider"] {
+        background-color: var(--teal) !important;
+        border: 2px solid var(--warm-white) !important;
+        box-shadow: 0 0 10px rgba(58, 191, 178, 0.4) !important;
+        width: 16px !important;
+        height: 16px !important;
+    }
+    div[data-testid="stSlider"] div[data-testid="stSliderTrack"] > div {
+        background: linear-gradient(90deg, #1E8C82 0%, #3ABFB2 100%) !important;
+    }
+    div[data-testid="stSlider"] label {
+        font-family: var(--ff-mono) !important;
+        font-size: 0.74rem !important;
+        letter-spacing: 0.12em !important;
+        text-transform: uppercase !important;
+        color: var(--cream) !important;
+    }
+
+    /* Executive Selectbox & Number Input Typography */
+    div[data-testid="stSelectbox"] label,
+    div[data-testid="stNumberInput"] label {
+        font-family: var(--ff-mono) !important;
+        font-size: 0.72rem !important;
+        letter-spacing: 0.1em !important;
+        text-transform: uppercase !important;
+        color: var(--muted-strong) !important;
+    }
+    div[data-baseweb="input"] input {
+        font-family: var(--ff-mono) !important;
+        font-size: 0.85rem !important;
+        color: var(--cream) !important;
+    }
     div[data-baseweb="select"] > div,
     div[data-baseweb="input"] > div {
         background-color: #0E1C2E !important;
@@ -374,6 +412,25 @@ st.markdown(
     div[data-baseweb="select"] > div:hover,
     div[data-baseweb="input"] > div:hover {
         border-color: var(--teal) !important;
+    }
+
+    /* Executive Expander Styling */
+    div[data-testid="stExpander"] {
+        background: var(--navy-mid) !important;
+        border: 1px solid var(--border-hairline) !important;
+        border-radius: 4px !important;
+        margin-bottom: 1rem !important;
+    }
+    div[data-testid="stExpander"] summary {
+        font-family: var(--ff-mono) !important;
+        font-size: 0.76rem !important;
+        letter-spacing: 0.12em !important;
+        text-transform: uppercase !important;
+        color: var(--teal) !important;
+        padding: 0.75rem 1rem !important;
+    }
+    div[data-testid="stExpander"] summary:hover {
+        color: var(--teal-light) !important;
     }
 
     /* Primary Action Buttons */
@@ -394,6 +451,71 @@ st.markdown(
     div.stFormSubmitButton > button:hover {
         background: var(--teal) !important;
         color: var(--navy) !important;
+    }
+
+    /* Booktabs Table System (Nature / Academic Memorandum Standard) */
+    .booktabs-table-wrapper {
+        overflow-x: auto;
+        margin: 1.2rem 0;
+        border-radius: 4px;
+        background: var(--navy-mid);
+        border: 1px solid var(--border-hairline);
+    }
+    table.booktabs {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: var(--ff-body);
+        font-size: 0.86rem;
+        color: var(--cream);
+        text-align: left;
+    }
+    table.booktabs th {
+        font-family: var(--ff-mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--teal);
+        padding: 11px 14px;
+        border-top: 2px solid var(--teal);
+        border-bottom: 1.2px solid rgba(58, 191, 178, 0.4);
+        background: rgba(14, 28, 46, 0.75);
+        font-weight: 700;
+    }
+    table.booktabs td {
+        padding: 10px 14px;
+        border-bottom: 1px solid rgba(247, 243, 237, 0.05);
+        vertical-align: middle;
+        color: var(--muted-strong);
+    }
+    table.booktabs tr:nth-child(even) td {
+        background: rgba(255, 255, 255, 0.015);
+    }
+    table.booktabs tr:hover td {
+        background: rgba(58, 191, 178, 0.04);
+    }
+    table.booktabs tr.last-row td,
+    table.booktabs tfoot td {
+        border-top: 1.2px solid rgba(58, 191, 178, 0.4);
+        border-bottom: 2px solid var(--teal);
+        font-weight: 700;
+        color: var(--warm-white);
+        background: rgba(14, 28, 46, 0.85);
+    }
+
+    /* Terminal Code Container */
+    .code-container {
+        background: #070e17;
+        border: 1px solid var(--border-hairline);
+        border-radius: 4px;
+        padding: 1rem 1.2rem;
+        font-family: var(--ff-mono);
+        font-size: 0.78rem;
+        color: var(--teal-light);
+        max-height: 380px;
+        overflow-y: auto;
+        white-space: pre-wrap;
+        line-height: 1.5;
+        margin-bottom: 1rem;
     }
 
     /* Formal Validation Seal */
@@ -487,6 +609,56 @@ def apply_executive_theme(fig: go.Figure, title: str | None = None) -> go.Figure
         ),
     )
     return fig
+
+
+def render_bioprocess_booktabs_table(df: pd.DataFrame, total_cost: float) -> str:
+    """Renders a Nature/Academic style Booktabs HTML table for industrial dosing."""
+    rows_html = []
+    for _, r in df.iterrows():
+        ing = str(r["Ingrediente"])
+        pct = float(r["Inclusión (%)"])
+        cost_kg = float(r["Costo Insumo (USD/kg)"])
+        dosing_kg = pct * 10.0
+        cost_partial = dosing_kg * cost_kg
+        rows_html.append(
+            f"""
+            <tr>
+                <td style="font-weight: 600; color: #FAFAF8;">{ing}</td>
+                <td style="font-family: var(--ff-mono); text-align: right;">${cost_kg:.2f}</td>
+                <td style="font-family: var(--ff-mono); text-align: right; color: #3ABFB2; font-weight: 700;">{pct:.2f}%</td>
+                <td style="font-family: var(--ff-mono); text-align: right;">{dosing_kg:.1f} kg</td>
+                <td style="font-family: var(--ff-mono); text-align: right; font-weight: 700;">${cost_partial:.2f}</td>
+            </tr>
+            """
+        )
+    table_html = f"""
+    <div class="booktabs-table-wrapper">
+        <table class="booktabs">
+            <thead>
+                <tr>
+                    <th>Materia Prima / Insumo</th>
+                    <th style="text-align: right;">Costo Base (USD/kg)</th>
+                    <th style="text-align: right;">Inclusión Óptima (% p/p)</th>
+                    <th style="text-align: right;">Dosificación / Tonelada</th>
+                    <th style="text-align: right;">Costo Parcial (USD/Ton)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {''.join(rows_html)}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td style="font-family: var(--ff-mono); letter-spacing: 0.08em; text-transform: uppercase;">CONSERVACIÓN DE MASA (SÍMPLEX)</td>
+                    <td style="text-align: right;">—</td>
+                    <td style="font-family: var(--ff-mono); text-align: right; color: #3ABFB2;">100.00%</td>
+                    <td style="font-family: var(--ff-mono); text-align: right;">1,000.0 kg</td>
+                    <td style="font-family: var(--ff-mono); text-align: right; color: #D9715A; font-size: 1.05em;">${total_cost:,.2f}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    """
+    return table_html
 
 
 @st.cache_resource
@@ -1169,22 +1341,33 @@ try:
             st.caption(
                 "Estructura tipada y serializable lista para ingesta automática en sistemas SAP / SCADA."
             )
-            st.json(result.model_dump())
+            json_contract = result.model_dump_json(indent=2)
+            st.markdown(
+                f"""
+                <div class="code-container">
+                    <code>{json_contract}</code>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
             st.download_button(
                 label="Descargar Ficha Técnica JSON",
-                data=result.model_dump_json(indent=2),
+                data=json_contract,
                 file_name="optimizacion_bioproceso.json",
                 mime="application/json",
                 width="stretch",
             )
 
         with col_csv:
-            st.markdown("#### Matriz de Producción de Planta (CSV)")
-            st.caption("Tabla de pesaje y dosificación por insumo para control de batch en planta.")
-            st.dataframe(df_res, width="stretch")
+            st.markdown("#### Matriz de Producción de Planta")
+            st.caption("Orden de dosificación y pesaje estandarizada para control de batch en tolvas.")
+            st.markdown(
+                render_bioprocess_booktabs_table(df_res, result.cost_usd_per_ton),
+                unsafe_allow_html=True,
+            )
             csv_data = df_res.to_csv(index=False).encode("utf-8")
             st.download_button(
-                label="Descargar Distribución de Dosificación (CSV)",
+                label="Descargar Matriz de Dosificación (CSV)",
                 data=csv_data,
                 file_name="dosificacion_planta.csv",
                 mime="text/csv",
