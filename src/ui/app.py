@@ -318,13 +318,13 @@ def apply_executive_theme(fig: go.Figure, title: str | None = None) -> go.Figure
             gridcolor="#1e293b",
             zerolinecolor="#334155",
             tickfont=dict(size=11, color="#94a3b8"),
-            titlefont=dict(size=12, color="#cbd5e1"),
+            title=dict(font=dict(size=12, color="#cbd5e1")),
         ),
         yaxis=dict(
             gridcolor="#1e293b",
             zerolinecolor="#334155",
             tickfont=dict(size=11, color="#94a3b8"),
-            titlefont=dict(size=12, color="#cbd5e1"),
+            title=dict(font=dict(size=12, color="#cbd5e1")),
         ),
     )
     return fig
