@@ -48,7 +48,7 @@ st.markdown(
         border: 1px solid #334155;
         border-radius: 10px;
         padding: 1.5rem 1.75rem;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1.25rem;
         box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
     }
     .exec-doc-badge {
@@ -91,6 +91,70 @@ st.markdown(
     .exec-meta-item strong {
         color: #e2e8f0;
         font-weight: 600;
+    }
+
+    /* Guide / Onboarding Box */
+    .exec-guide-box {
+        background: #0f172a;
+        border: 1px solid #1e293b;
+        border-left: 4px solid #0284c7;
+        border-radius: 8px;
+        padding: 1.25rem 1.5rem;
+        margin-bottom: 1.25rem;
+    }
+    .exec-guide-title {
+        font-size: 0.92rem;
+        font-weight: 700;
+        color: #38bdf8;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        margin-bottom: 0.5rem;
+    }
+    .exec-guide-text {
+        font-size: 0.88rem;
+        color: #cbd5e1;
+        line-height: 1.6;
+        margin: 0;
+    }
+    .exec-guide-step-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+    .exec-guide-step {
+        background: #1e293b;
+        border: 1px solid #334155;
+        border-radius: 6px;
+        padding: 0.85rem 1rem;
+        font-size: 0.83rem;
+        color: #94a3b8;
+        line-height: 1.45;
+    }
+    .exec-guide-step strong {
+        color: #38bdf8;
+        display: block;
+        margin-bottom: 0.3rem;
+        font-size: 0.86rem;
+    }
+
+    /* Explainer Cards */
+    .exec-card-explainer {
+        background: #0f172a;
+        border: 1px solid #1e293b;
+        border-radius: 6px;
+        padding: 0.9rem 1.15rem;
+        margin-bottom: 0.85rem;
+    }
+    .exec-card-explainer strong {
+        color: #38bdf8;
+        font-size: 0.86rem;
+    }
+    .exec-card-explainer p {
+        color: #94a3b8;
+        font-size: 0.82rem;
+        margin: 0.3rem 0 0 0;
+        line-height: 1.45;
     }
 
     /* Executive KPI Metric Cards */
@@ -298,6 +362,41 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+# Onboarding & Purpose Guide for First-Time Visitors
+with st.expander("📌 ¿QUÉ ES ESTA PLATAFORMA Y CUÁL ES SU PROPÓSITO? (Guía para Primeros Visitantes)", expanded=True):
+    st.markdown(
+        """
+        <div class="exec-guide-box">
+            <div class="exec-guide-title">🎯 Propósito Estratégico & Problema Industrial que Resuelve</div>
+            <p class="exec-guide-text">
+                En bioprocesos industriales (dietas acuícolas, caldos de fermentación y agroindustria), las materias primas representan entre el
+                <strong>50% y 75% del costo operativo total (OPEX)</strong>. Tradicionalmente, las plantas formulan usando programación lineal clásica (Simplex al mínimo costo).
+                Sin embargo, la biología <strong>no es lineal</strong>: combinar nutrientes produce fenómenos de saturación enzimática, inhibición por sustrato
+                y rendimientos decrecientes.<br><br>
+                <strong>BioProcess-Optimizer ML</strong> resuelve esta fricción integrando un <strong>modelo subrogante de Machine Learning</strong>
+                (que actúa como gemelo digital del biorreactor y estima el rendimiento en milisegundos) con un <strong>optimizador matemático no lineal restringido (SciPy SLSQP)</strong>.
+                El sistema encuentra la receta exacta que <strong>minimiza el costo en dólares por tonelada</strong> garantizando estrictamente que se alcance
+                la meta biológica requerida por la planta.
+            </p>
+            <div class="exec-guide-step-grid">
+                <div class="exec-guide-step">
+                    <strong>1. Configura Insumos y Precios</strong>
+                    En el panel lateral izquierdo, selecciona una matriz industrial o edita los costos de mercado (USD/kg) y los límites de inclusión permitidos (% mín/máx).
+                </div>
+                <div class="exec-guide-step">
+                    <strong>2. Define la Meta Biológica</strong>
+                    Ajusta el control deslizante (slider) con el rendimiento biológico exigido por tu proceso (ej. 65% de ganancia de peso o biomasa celular).
+                </div>
+                <div class="exec-guide-step">
+                    <strong>3. Analiza el Impacto y Exporta</strong>
+                    Revisa el costo por tonelada y el ahorro generado, examina el trade-off en la Frontera de Pareto, comprende el porqué con SHAP y descarga la receta para ERP/LIMS.
+                </div>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
 # Sidebar Configuration
 st.sidebar.markdown("### ⚙️ Plantillas de Formulación")
 PRESET_TEMPLATES: dict[str, dict[str, Any]] = {
@@ -466,7 +565,48 @@ try:
             unsafe_allow_html=True,
         )
 
-    st.markdown("<div style='height: 1rem;'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='height: 0.6rem;'></div>", unsafe_allow_html=True)
+
+    # Explanatory breakdown of KPIs
+    with st.expander("💡 ¿CÓMO INTERPRETAR ESTOS 4 RESULTADOS CLAVE?", expanded=False):
+        st.markdown(
+            """
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 0.25rem;">
+                <div class="exec-card-explainer">
+                    <strong style="color: #10b981;">💵 Costo Optimizado (USD/Ton) & Ahorro %:</strong>
+                    <p>
+                        Indica el costo monetario de producir 1 tonelada métrica de la fórmula resultante.
+                        El porcentaje verde refleja el <strong>ahorro directo</strong> frente a una receta base con proporciones equitativas,
+                        demostrando el impacto económico inmediato en el margen bruto de la empresa.
+                    </p>
+                </div>
+                <div class="exec-card-explainer">
+                    <strong style="color: #38bdf8;">📈 Rendimiento Biológico Predicho:</strong>
+                    <p>
+                        Es la respuesta fisiológica estimada por el modelo de IA (conversión alimenticia, crecimiento o producción de metabolito).
+                        El algoritmo garantiza que este valor siempre sea <strong>igual o superior a la meta mínima</strong> que definiste en el control deslizante.
+                    </p>
+                </div>
+                <div class="exec-card-explainer">
+                    <strong style="color: #fbbf24;">⚙️ Iteraciones Solver & Tolerancia KKT &le; 10⁻⁶:</strong>
+                    <p>
+                        Certificación de convergencia matemática rigurosa. Significa que el algoritmo resolvió con éxito las condiciones de Karush-Kuhn-Tucker (KKT),
+                        demostrando que se ha alcanzado un mínimo local/global factible sin violar ninguna restricción técnica.
+                    </p>
+                </div>
+                <div class="exec-card-explainer">
+                    <strong style="color: #e2e8f0;">⚖️ Estado Simplex (&Sigma;wᵢ = 1.0000):</strong>
+                    <p>
+                        Garantía absoluta de conservación de masa: la suma de las fracciones ponderadas de todos los ingredientes es exactamente el 100.00%.
+                        Esto asegura que no existan 'fugas de masa' ni errores de dosificación física en la tolva de mezclado.
+                    </p>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    st.markdown("<div style='height: 0.5rem;'></div>", unsafe_allow_html=True)
 
     # Formal Mathematical Callout Box (Scientific Formula Typesetting Skill)
     with st.expander("📐 Formulación Matemática & Modelo de Optimización (Constrained SLSQP)", expanded=False):
@@ -507,6 +647,19 @@ try:
 
     with tab1:
         st.markdown('<div class="exec-section-heading">Distribución de Insumos vs. Frontera Eficiente de Pareto</div>', unsafe_allow_html=True)
+        st.markdown(
+            """
+            <div class="exec-card-explainer" style="margin-bottom: 1.25rem;">
+                <strong>📖 ¿Cómo interpretar estos dos gráficos?</strong>
+                <p>
+                    • <strong>Perfil de Inclusión (% p/p):</strong> Es la orden de pesaje para la planta. Muestra cuántos kilos de cada materia prima deben dosificarse por cada 100 kg de fórmula para obtener el menor costo posible.<br>
+                    • <strong>Frontera de Pareto:</strong> Es el mapa estratégico de trade-off entre dinero y biología. Cada punto de la línea azul es la receta más económica factible para ese nivel de rendimiento. La <strong>estrella dorada</strong> marca tu receta actual. Observa cómo al exigir rendimientos muy altos (&gt;75%), la curva se vuelve empinada: esto revela a la gerencia el costo marginal exponencial de exigir mayor rendimiento biológico.
+                </p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
         df_res = pd.DataFrame([
             {"Ingrediente": k, "Inclusión (%)": v * 100.0, "Costo Insumo (USD/kg)": ing.cost_per_kg}
             for (k, v), ing in zip(result.optimal_fractions.items(), ingredients_input, strict=False)
@@ -585,10 +738,19 @@ try:
             unsafe_allow_html=True,
         )
         st.markdown(
-            "<p style='color: #94a3b8; font-size: 0.9rem; margin-bottom: 1rem;'>"
-            "Descomposición aditiva del rendimiento biológico predicho en función de la redistribución ponderada de insumos "
-            "respecto a la formulación equitativa base."
-            "</p>",
+            """
+            <div class="exec-card-explainer" style="margin-bottom: 1.25rem;">
+                <strong>📖 ¿Cómo entender este Gráfico de Cascada (Waterfall)?</strong>
+                <p>
+                    En la industria biotecnológica, los ingenieros y directores de planta no pueden confiar en una 'caja negra'.
+                    Este gráfico de atribución aditiva descompone exactamente cómo razonó el modelo de Machine Learning:<br>
+                    • <strong>Barra Gris Inicial:</strong> Representa el rendimiento de una formulación base arbitraria (insumos en partes iguales).<br>
+                    • <strong>Barras Verdes (+):</strong> Ingredientes que el algoritmo decidió aumentar porque su aporte al rendimiento biológico supera con creces su costo.<br>
+                    • <strong>Barras Rojas (-):</strong> Ingredientes que el algoritmo recortó hasta el mínimo operacional para abaratar la fórmula sin comprometer la meta biológica.<br>
+                    • <strong>Barra Azul Final:</strong> El rendimiento biológico neto alcanzado por la mezcla óptima sugerida.
+                </p>
+            </div>
+            """,
             unsafe_allow_html=True,
         )
 
@@ -660,6 +822,21 @@ try:
 
     with tab3:
         st.markdown('<div class="exec-section-heading">Contratos de Datos & Exportación Estructurada</div>', unsafe_allow_html=True)
+        st.markdown(
+            """
+            <div class="exec-card-explainer" style="margin-bottom: 1.25rem;">
+                <strong>📖 Propósito de Integración Operativa:</strong>
+                <p>
+                    Elimina la fricción y los errores de digitación humana entre el equipo de I+D/Formulación y la planta productiva.
+                    Permite descargar la receta en contratos tipados y auditables:<br>
+                    • <strong>JSON (Pydantic v2):</strong> Listo para conectarse mediante API a sistemas MES, SCADA o LIMS de la planta.<br>
+                    • <strong>CSV (Matriz de Dosificación):</strong> Formato tabular estandarizado para los operarios de pesaje y tolvas de mezclado.
+                </p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
         col_json, col_csv = st.columns(2)
         with col_json:
             st.markdown("#### 📦 Ficha Técnica LIMS / ERP (JSON Pydantic v2)")
@@ -707,6 +884,12 @@ try:
             - **Método:** *Sequential Least Squares Programming*, que aproxima sucesivamente el Lagrangiano cuadrático bajo restricciones de igualdad y desigualdad lineales y no lineales.
             - **Criterio de Parada:** Tolerancia residual en condiciones Karush-Kuhn-Tucker (KKT) menor a $10^{-6}$.
             - **Conservación de Masa:** La restricción $\sum_{i=1}^n w_i = 1.0$ se satisface de forma estricta con error residual $< 10^{-7}$.
+
+            ### 4. Preguntas Frecuentes para Directivos y Auditores (FAQ)
+            - **¿Por qué no usar simplemente Excel Solver o Linear Programming?**
+              Los métodos lineales asumen que si agregas el doble de un ingrediente obtendrás el doble de rendimiento. En bioprocesos esto es falso y peligroso: puede generar toxicidad osmótica, desbalance aminoacídico o desperdicio de materias primas costosas. Nuestro motor SLSQP acoplado a Machine Learning modela la curvatura real de la respuesta metabólica.
+            - **¿Cómo se asegura que la fórmula no sea tóxica o inoperable en planta?**
+              Cada insumo tiene cotas operacionales estrictas ($w_i^{\min}$ y $w_i^{\max}$) definidas por límites nutricionales, viscosidad tecnológica de extrusión o restricciones de inventario. El solver nunca propondrá una receta que viole estos límites físicos.
             """
         )
 
