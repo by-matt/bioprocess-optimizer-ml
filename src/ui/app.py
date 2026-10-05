@@ -84,6 +84,25 @@ PRESET_TEMPLATES: dict[str, dict[str, Any]] = {
     },
 }
 
+@st.cache_data
+def get_cached_pareto(ing_tuple: tuple[tuple[str, float, float, float], ...]) -> pd.DataFrame:
+    ing_objs = [
+        IngredientSpec(name=n, cost_per_kg=c, min_fraction=mn, max_fraction=mx)
+        for n, c, mn, mx in ing_tuple
+    ]
+    yield_range = np.linspace(45.0, 85.0, 9)
+    pareto_costs: list[float | None] = []
+    for y_target in yield_range:
+        try:
+            res_sim = optimizer.optimize(
+                OptimizationRequest(ingredients=ing_objs, min_target_yield=float(y_target))
+            )
+            pareto_costs.append(res_sim.cost_usd_per_ton)
+        except Exception:
+            pareto_costs.append(None)
+    return pd.DataFrame({"Target Yield (%)": yield_range, "Cost (USD/Ton)": pareto_costs})
+
+
 preset = st.sidebar.selectbox(
     "Plantilla de Formulación Industrial:",
     list(PRESET_TEMPLATES.keys()),
@@ -94,38 +113,39 @@ preset_slug = str(selected_preset["slug"])
 default_ingredients: list[DefaultIngredient] = selected_preset["ingredients"]
 default_yield: float = float(selected_preset["target_yield"])
 
-st.sidebar.subheader("Parámetros por Ingrediente")
-ingredients_input: list[IngredientSpec] = []
-for i, item in enumerate(default_ingredients):
-    ing_name = item["name"]
-    ing_cost = item["cost"]
-    ing_min = item["min"]
-    ing_max = item["max"]
-    st.sidebar.markdown(f"**{ing_name}**")
-    c1, c2, c3 = st.sidebar.columns(3)
-    cost = float(
-        c1.number_input(f"USD/kg #{i+1}", value=ing_cost, step=0.1, key=f"{preset_slug}_cost_{i}")
-    )
-    min_f = float(
-        c2.number_input(f"Mín % #{i+1}", value=int(ing_min * 100), step=1, key=f"{preset_slug}_min_{i}")
-    ) / 100.0
-    max_f = float(
-        c3.number_input(f"Máx % #{i+1}", value=int(ing_max * 100), step=1, key=f"{preset_slug}_max_{i}")
-    ) / 100.0
-    ingredients_input.append(
-        IngredientSpec(name=ing_name, cost_per_kg=cost, min_fraction=min_f, max_fraction=max_f)
+with st.sidebar.form(key=f"form_{preset_slug}"):
+    st.subheader("Parámetros por Ingrediente")
+    ingredients_input: list[IngredientSpec] = []
+    for i, item in enumerate(default_ingredients):
+        ing_name = item["name"]
+        ing_cost = item["cost"]
+        ing_min = item["min"]
+        ing_max = item["max"]
+        st.markdown(f"**{ing_name}**")
+        c1, c2, c3 = st.columns(3)
+        cost = float(
+            c1.number_input(f"USD/kg #{i+1}", value=ing_cost, step=0.1, key=f"{preset_slug}_cost_{i}")
+        )
+        min_f = float(
+            c2.number_input(f"Mín % #{i+1}", value=int(ing_min * 100), step=1, key=f"{preset_slug}_min_{i}")
+        ) / 100.0
+        max_f = float(
+            c3.number_input(f"Máx % #{i+1}", value=int(ing_max * 100), step=1, key=f"{preset_slug}_max_{i}")
+        ) / 100.0
+        ingredients_input.append(
+            IngredientSpec(name=ing_name, cost_per_kg=cost, min_fraction=min_f, max_fraction=max_f)
+        )
+
+    target_yield = st.slider(
+        "🎯 Rendimiento Biológico Mínimo Requerido (%)",
+        min_value=40.0,
+        max_value=90.0,
+        value=default_yield,
+        step=1.0,
+        key=f"{preset_slug}_yield_slider",
     )
 
-target_yield = st.sidebar.slider(
-    "🎯 Rendimiento Biológico Mínimo Requerido (%)",
-    min_value=40.0,
-    max_value=90.0,
-    value=default_yield,
-    step=1.0,
-    key=f"{preset_slug}_yield_slider",
-)
-
-st.sidebar.button("🚀 Re-calcular Formulación", type="primary", use_container_width=True)
+    st.form_submit_button("🚀 Re-calcular Formulación", type="primary")
 
 try:
     request = OptimizationRequest(ingredients=ingredients_input, min_target_yield=target_yield)
@@ -172,22 +192,14 @@ try:
                 title="Distribución Óptima de la Fórmula",
             )
             fig_bar.update_traces(texttemplate="%{text:.1f}%", textposition="outside")
-            st.plotly_chart(fig_bar, use_container_width=True)
+            st.plotly_chart(fig_bar, width="stretch")
 
         with col_right:
-            # Simulación de Frontera de Pareto
-            yield_range = np.linspace(45.0, 85.0, 15)
-            pareto_costs: list[float | None] = []
-            for y_target in yield_range:
-                try:
-                    res_sim = optimizer.optimize(
-                        OptimizationRequest(ingredients=ingredients_input, min_target_yield=y_target)
-                    )
-                    pareto_costs.append(res_sim.cost_usd_per_ton)
-                except Exception:
-                    pareto_costs.append(None)
-
-            df_pareto = pd.DataFrame({"Target Yield (%)": yield_range, "Cost (USD/Ton)": pareto_costs})
+            ing_tuple = tuple(
+                (ing.name, ing.cost_per_kg, ing.min_fraction, ing.max_fraction)
+                for ing in ingredients_input
+            )
+            df_pareto = get_cached_pareto(ing_tuple)
             fig_pareto = px.line(
                 df_pareto,
                 x="Target Yield (%)",
@@ -204,7 +216,7 @@ try:
                     name="Punto Óptimo Seleccionado",
                 )
             )
-            st.plotly_chart(fig_pareto, use_container_width=True)
+            st.plotly_chart(fig_pareto, width="stretch")
 
     with tab2:
         st.markdown("### 🔍 Explicabilidad de Caja Blanca: Contribuciones Aditivas SHAP")
@@ -262,7 +274,7 @@ try:
             waterfallgap=0.3,
             yaxis=dict(title="Rendimiento Predicho (%)", range=[30, 100]),
         )
-        st.plotly_chart(fig_wf, use_container_width=True)
+        st.plotly_chart(fig_wf, width="stretch")
 
         st.info(
             "💡 **Interpretación Ejecutiva para Gerencia:** "
