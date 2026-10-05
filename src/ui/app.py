@@ -3,6 +3,7 @@ Streamlit Web Application: BioProcess-Optimizer ML
 Author: Byron Calderón González (github.com/by-matt)
 """
 
+from typing import TypedDict
 import numpy as np
 import pandas as pd
 import plotly.express as px
@@ -12,6 +13,14 @@ import streamlit as st
 from src.models.surrogate import SurrogateYieldModel
 from src.optimization.schemas import IngredientSpec, OptimizationRequest
 from src.optimization.solver import FormulationOptimizer
+
+
+class DefaultIngredient(TypedDict):
+    name: str
+    cost: float
+    min: float
+    max: float
+
 
 st.set_page_config(
     page_title="BioProcess-Optimizer ML | Byron Calderón",
@@ -51,7 +60,7 @@ preset = st.sidebar.selectbox(
     ],
 )
 
-default_ingredients = [
+default_ingredients: list[DefaultIngredient] = [
     {"name": "Proteína / Hidrolizado Marino", "cost": 2.30, "min": 0.15, "max": 0.45},
     {"name": "Fuente Nitrógeno Fermentativo", "cost": 1.45, "min": 0.10, "max": 0.40},
     {"name": "Suplemento Microelementos & Taurina", "cost": 4.10, "min": 0.02, "max": 0.12},
@@ -61,10 +70,10 @@ default_ingredients = [
 st.sidebar.subheader("Parámetros por Ingrediente")
 ingredients_input: list[IngredientSpec] = []
 for i, item in enumerate(default_ingredients):
-    ing_name = str(item["name"])
-    ing_cost = float(item["cost"])
-    ing_min = float(item["min"])
-    ing_max = float(item["max"])
+    ing_name = item["name"]
+    ing_cost = item["cost"]
+    ing_min = item["min"]
+    ing_max = item["max"]
     st.sidebar.markdown(f"**{ing_name}**")
     c1, c2, c3 = st.sidebar.columns(3)
     cost = float(c1.number_input(f"USD/kg #{i+1}", value=ing_cost, step=0.1, key=f"cost_{i}"))
