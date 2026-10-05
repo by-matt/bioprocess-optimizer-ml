@@ -91,10 +91,11 @@ target_yield = st.sidebar.slider(
     step=1.0,
 )
 
-if st.sidebar.button("🚀 Ejecutar Optimización", type="primary", use_container_width=True):
-    try:
-        request = OptimizationRequest(ingredients=ingredients_input, min_target_yield=target_yield)
-        result = optimizer.optimize(request)
+st.sidebar.button("🚀 Re-calcular Formulación", type="primary", use_container_width=True)
+
+try:
+    request = OptimizationRequest(ingredients=ingredients_input, min_target_yield=target_yield)
+    result = optimizer.optimize(request)
 
         # Baseline: Formulación equitativa para comparación de ROI
         n_ing = len(ingredients_input)
@@ -265,5 +266,3 @@ if st.sidebar.button("🚀 Ejecutar Optimización", type="primary", use_containe
 
     except Exception as e:
         st.error(f"Error en los parámetros de optimización: {e}")
-else:
-    st.info("Ajuste los límites y costos en la barra lateral y presione 'Ejecutar Optimización' para calcular la fórmula óptima.")
