@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard de Avance Estratégico | Byron Calderón</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+    code, pre { font-family: 'JetBrains Mono', monospace; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen">
+
+  <!-- TOP NAVIGATION / BRANDING -->
+  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50 px-6 py-4">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-bold text-xl">
+          ⚡
+        </div>
+        <div>
+          <h1 class="text-lg font-bold tracking-tight text-white flex items-center gap-2">
+            Byron Calderón González <span class="text-xs px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">Applied AI Engineer</span>
+          </h1>
+          <p class="text-xs text-slate-400">Roadmap de Posicionamiento a 90 Días • OKR & Sprint Tracker</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="text-xs text-slate-400">Progreso Global:</span>
+        <div class="w-32 bg-slate-800 rounded-full h-2.5 overflow-hidden">
+          <div class="bg-gradient-to-r from-emerald-500 to-cyan-500 h-2.5 rounded-full" style="width: 28%"></div>
+        </div>
+        <span class="text-xs font-semibold text-emerald-400">28% (Semana 1)</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-6 py-8 space-y-8">
+
+    <!-- KPI CARDS GRID -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-sm">
+        <div class="flex items-center justify-between text-slate-400 text-xs font-medium uppercase tracking-wider mb-2">
+          <span>Herramienta 1</span>
+          <i class="fa-solid fa-microchip text-emerald-400"></i>
+        </div>
+        <div class="text-2xl font-bold text-white">BioProcess-Opt</div>
+        <div class="mt-2 flex items-center gap-2 text-xs">
+          <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-medium">100% Core Listo</span>
+          <span class="text-slate-500">5/5 Tests Pasados</span>
+        </div>
+      </div>
+
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-sm">
+        <div class="flex items-center justify-between text-slate-400 text-xs font-medium uppercase tracking-wider mb-2">
+          <span>Herramienta 2</span>
+          <i class="fa-solid fa-file-shield text-cyan-400"></i>
+        </div>
+        <div class="text-2xl font-bold text-white">ReguTech-AI</div>
+        <div class="mt-2 flex items-center gap-2 text-xs">
+          <span class="px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 font-medium">Fase 2 (Mes 2)</span>
+          <span class="text-slate-500">RAG Determinista</span>
+        </div>
+      </div>
+
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-sm">
+        <div class="flex items-center justify-between text-slate-400 text-xs font-medium uppercase tracking-wider mb-2">
+          <span>LinkedIn Reach</span>
+          <i class="fa-brands fa-linkedin text-blue-400"></i>
+        </div>
+        <div class="text-2xl font-bold text-white">0 / 45K Imp.</div>
+        <div class="mt-2 flex items-center gap-2 text-xs">
+          <span class="px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 font-medium">12 Posts Planificados</span>
+          <span class="text-slate-500">Lanzamiento Sem 2</span>
+        </div>
+      </div>
+
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 shadow-sm">
+        <div class="flex items-center justify-between text-slate-400 text-xs font-medium uppercase tracking-wider mb-2">
+          <span>Target Remoto</span>
+          <i class="fa-solid fa-dollar-sign text-emerald-400"></i>
+        </div>
+        <div class="text-2xl font-bold text-white">$75K - $110K</div>
+        <div class="mt-2 flex items-center gap-2 text-xs">
+          <span class="px-2 py-0.5 rounded bg-purple-500/10 text-purple-400 font-medium">Banda USD/Año</span>
+          <span class="text-slate-500">EE.UU. / Europa B2B</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- REPO STATUS NOTIFICATION -->
+    <div class="bg-emerald-950/40 border border-emerald-800/60 rounded-xl p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div class="space-y-1">
+        <div class="flex items-center gap-2">
+          <span class="flex h-2.5 w-2.5 rounded-full bg-emerald-400"></span>
+          <span class="text-sm font-semibold text-emerald-300">Repositorio 100% Creado y Sincronizado en GitHub (Live)</span>
+        </div>
+        <p class="text-xs text-slate-300">
+          Ubicación en GitHub: <a href="https://github.com/by-matt/bioprocess-optimizer-ml" target="_blank" class="underline text-emerald-400 font-mono">github.com/by-matt/bioprocess-optimizer-ml</a>.
+          Todos los secretos y API keys están estrictamente protegidos en <code>.gitignore</code>.
+        </p>
+      </div>
+      <div class="flex items-center gap-2">
+        <a href="https://github.com/by-matt/bioprocess-optimizer-ml" target="_blank" class="px-3.5 py-1.5 text-xs font-semibold bg-emerald-500 hover:bg-emerald-400 text-slate-950 rounded-lg transition inline-flex items-center gap-1.5 shadow-sm">
+          <i class="fa-brands fa-github text-sm"></i> Ver Repositorio en GitHub
+        </a>
+      </div>
+    </div>
+
+    <!-- ROADMAP INTERACTIVO POR FASES -->
+    <div class="space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h2 class="text-base font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-list-check text-emerald-400"></i> Desglose de Actividades y Tareas por Sprint
+        </h2>
+        <span class="text-xs text-slate-500">Haz clic en cada tarea para auditar su estado</span>
+      </div>
+
+      <!-- FASE 1 -->
+      <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
+        <div class="bg-slate-800/60 px-5 py-3 border-b border-slate-800 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-xs font-bold">FASE 1</span>
+            <span class="text-sm font-semibold text-white">Mes 1 (Días 1-30): BioProcess-Optimizer ML & CI/CD</span>
+          </div>
+          <span class="text-xs font-semibold text-emerald-400">80% Completado</span>
+        </div>
+        <div class="p-5 space-y-4">
+          
+          <!-- Actividad 1.1 -->
+          <div class="border border-slate-800/80 rounded-lg p-4 bg-slate-950/40">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold text-slate-200">Actividad 1.1: Scaffolding, Tipado Estricto y CI/CD</span>
+              <span class="text-xs text-emerald-400 font-semibold"><i class="fa-solid fa-check"></i> Listo</span>
+            </div>
+            <ul class="text-xs space-y-1.5 text-slate-400">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Estructura modular creada (<code>src/models</code>, <code>src/optimization</code>, <code>src/ui</code>, <code>tests</code>).</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> <code>pyproject.toml</code> con configuración de Ruff, Mypy y Pytest.</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> <code>.github/workflows/ci.yml</code> para builds automáticos en Python 3.11/3.12.</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> <code>.gitignore</code> con protección de secretos y <code>.env</code> criptográfico.</li>
+            </ul>
+          </div>
+
+          <!-- Actividad 1.2 -->
+          <div class="border border-slate-800/80 rounded-lg p-4 bg-slate-950/40">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold text-slate-200">Actividad 1.2: Motor de Optimización No Lineal y Tests</span>
+              <span class="text-xs text-emerald-400 font-semibold"><i class="fa-solid fa-check"></i> Listo</span>
+            </div>
+            <ul class="text-xs space-y-1.5 text-slate-400">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> <code>surrogate.py</code>: Modelo sustituto polinomial regularizado ($C^2$ continuo).</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> <code>solver.py</code>: Motor SciPy SLSQP con balance de masa ($\sum w_i = 1$) y límites de ingredientes.</li>
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Suite de tests unitarios: 5/5 pruebas aprobadas al 100%.</li>
+            </ul>
+          </div>
+
+          <!-- Actividad 1.3 -->
+          <div class="border border-slate-800/80 rounded-lg p-4 bg-slate-950/40">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold text-slate-200">Actividad 1.3: UI en Streamlit y Despliegue en la Nube</span>
+              <span class="text-xs text-amber-400 font-semibold"><i class="fa-solid fa-clock"></i> Pendiente Despliegue Cloud</span>
+            </div>
+            <ul class="text-xs space-y-1.5 text-slate-400">
+              <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> <code>src/ui/app.py</code> codificado con Plotly (Frontera de Pareto y distribución óptima).</li>
+              <li class="flex items-center gap-2 text-slate-300"><i class="fa-solid fa-arrow-right text-amber-400"></i> Próximo paso: Crear repo en GitHub y conectar a Streamlit Cloud.</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- FASE 2 -->
+      <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden opacity-90">
+        <div class="bg-slate-800/60 px-5 py-3 border-b border-slate-800 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-400 text-xs font-bold">FASE 2</span>
+            <span class="text-sm font-semibold text-white">Mes 2 (Días 31-60): ReguTech-AI Auditor & Tracción LinkedIn</span>
+          </div>
+          <span class="text-xs font-semibold text-cyan-400">Programada</span>
+        </div>
+        <div class="p-5 space-y-2 text-xs text-slate-400">
+          <p>• <strong>Actividad 2.1:</strong> Ingesta de CoAs en PDF y búsqueda vectorial semántica con FAISS.</p>
+          <p>• <strong>Actividad 2.2:</strong> Agente de auditoría con Pydantic v2 Structured Outputs (Zero-Hallucination).</p>
+          <p>• <strong>Actividad 2.3:</strong> UI Split-Screen en Streamlit para comparación documental inmediata.</p>
+          <p>• <strong>Actividad 2.4:</strong> Ejecución de los 12 posts técnicos en LinkedIn con métricas y código.</p>
+        </div>
+      </div>
+
+      <!-- FASE 3 -->
+      <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden opacity-80">
+        <div class="bg-slate-800/60 px-5 py-3 border-b border-slate-800 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-purple-500/20 text-purple-400 text-xs font-bold">FASE 3</span>
+            <span class="text-sm font-semibold text-white">Mes 3 (Días 61-90): Pipeline de Postulación Remota & Ofertas</span>
+          </div>
+          <span class="text-xs font-semibold text-purple-400">Programada</span>
+        </div>
+        <div class="p-5 space-y-2 text-xs text-slate-400">
+          <p>• <strong>Actividad 3.1:</strong> Adaptación de CV en inglés bajo formato Google X-Y-Z optimizado para ATS.</p>
+          <p>• <strong>Actividad 3.2:</strong> Outreach directo a 60 Hiring Managers (VPs of Engineering / AI Leads).</p>
+          <p>• <strong>Actividad 3.3:</strong> Simulaciones de entrevistas de ML System Design y live coding.</p>
+          <p>• <strong>Actividad 3.4:</strong> Negociación salarial y cierre de contrato remoto internacional ($75K-$110K USD).</p>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer class="border-t border-slate-800 py-6 px-6 text-center text-xs text-slate-500">
+    Ecosistema Estratégico diseñado para Byron Calderón González • Applied AI Engineer • 2026
+  </footer>
+
+</body>
+</html>
